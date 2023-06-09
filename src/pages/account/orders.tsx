@@ -1,6 +1,7 @@
 import AccountWrapper from "@/components/layouts/AccountWrapper";
 import { ROUTE_LOGIN } from "@/lib/common/Constants";
 import { fetchOrdersFromDB, fetchOrderItemsWithProducts } from "@/lib/mongoDB/orderQueries";
+import { fetchUserByEmail } from "@/lib/mongoDB/userQueries";
 import { OrderType, OrderItemType } from "@/lib/common/Types";
 
 import { authConfig } from "@/lib/auth";
@@ -82,18 +83,32 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
         },
       };
     }
+    if(!session.user){
+        return {
+            props: {
+              orders: [],
+              items: [],
+            },
+        };
+    }
 
     // Fetch additional session-related data using the session object
     try {
+
+        //Get User full object
+        const res1 = await fetchUserByEmail(session.user.email as string);
+        const user = res1.data;
+
         //Get Orders belonging to the connected User
-        const response = await fetchOrdersFromDB();
-        const orders = response.data;
+        const queryFilter = { query:{ user_id:user.id } };
+        const res2 = await fetchOrdersFromDB(queryFilter);
+        const orders = res2.data;
         // console.log("🚀 ~ file: orders.tsx:26 ~ getServerSideProps ~ orders:", orders.length)
 
         //Get items+product details related to the Orders found
         const ordersIds = orders.map(order => order.id);
-        const res2 = await fetchOrderItemsWithProducts(ordersIds)
-        const orderItems = res2.data;
+        const res3 = await fetchOrderItemsWithProducts(ordersIds)
+        const orderItems = res3.data;
         // console.log("🚀 ~ file: orders.tsx:31 ~ getServerSideProps ~ orderItems:", orderItems.length)
         return {
             props:{

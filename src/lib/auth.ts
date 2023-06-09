@@ -7,6 +7,11 @@ import { redirect } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react"
 // import { useRouter } from 'next/router';
 
+import { Session } from 'next-auth';
+import JWT from 'next-auth'
+
+type CustomSession = Session & {id:number};
+
 export const authConfig:NextAuthOptions = {
     providers:[
         CredentialsProvider({
@@ -46,9 +51,24 @@ export const authConfig:NextAuthOptions = {
                 }
 
                 return null;
-            }
+            },
+
         })
-    ]
+    ],
+    // callbacks: {
+    //     session: async (params) => {
+    //         const session = params.session as any;
+    //         console.log("🚀 ~ file: auth.ts:65 ~ session: ~ session:", session)
+    //         const user = params.user as any;
+    //         console.log("🚀 ~ file: auth.ts:67 ~ session: ~ user:", user)
+    //         const token = params.token as any;
+    //         console.log("🚀 ~ file: auth.ts:65 ~ session: ~ token:", token)
+    //         // Add a new field to the session object
+    //         // session.id = user.id;
+
+    //         return Promise.resolve(session);
+    //     },
+    // },
 }
 
 export async function loginIsRequiredServer(){
