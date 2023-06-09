@@ -1,3 +1,9 @@
+import React, { ReactNode } from 'react';
+
+export type WrapperProps = {
+  children: ReactNode;
+};
+
 
 export type ProductType = {
     _id?: string,
@@ -24,4 +30,38 @@ export type UserType = {
     first_name: string,
     last_name: string,
     telephone: string,
+}
+
+export type OrderType = {
+    _id?: string,
+    id: number,
+    user_id: number,
+    payment_id: number,
+    total: number,
+    created_at: string,
+    updated_at: string,
+}
+
+export type OrderItemType = {
+    _id?: string,
+    id: number,
+    order_id: number,
+    product_id: number,
+    quantity: number,
+    item_total: number,
+    created_at: string,
+    updated_at: string,
+    product?: ProductType
+}
+
+export type PaymentType = {
+    _id?: string,
+    id: number,
+    user_id: number,
+    order_id: number,
+    amount: number,
+    provider: string,
+    status: string,
+    created_at: string,
+    updated_at: string,
 }
