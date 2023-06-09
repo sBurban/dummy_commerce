@@ -10,16 +10,16 @@ import { TABLE_PRODUCTS,
     TABLE_ORDERS,
     TABLE_ORDER_ITEMS,
     TABLE_PAYMENTS,
-} from './dbTables';
+} from '../dbTables';
 
-import users_seeder from '../data/users_seeder';
-import user_address_seeder from '../data/user_address_seeder';
+import users_seeder from '../../data/users_seeder';
+import user_address_seeder from '../../data/user_address_seeder';
 // import shopping_session_seeder from '../data/shopping_session_seeder';
 // import shopping_items_seeder from '../data/shopping_items_seeder';
-import products_seeder from '../data/products_seeder';
-import payments_seeder from '../data/payments_seeder';
-import orders_seeder from '../data/orders_seeder';
-import order_items_seeder from '../data/order_items_seeder';
+import products_seeder from '../../data/products_seeder';
+import payments_seeder from '../../data/payments_seeder';
+import orders_seeder from '../../data/orders_seeder';
+import order_items_seeder from '../../data/order_items_seeder';
 
 type TableMap = Record<string, any>;
 

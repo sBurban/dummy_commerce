@@ -3,9 +3,9 @@
 import React from 'react'
 
 
-import { fetchProductsFromDB } from '@/lib/productApi';
-import { fetchProductById } from '@/lib/productApi';
-import { ProductType } from '@/common/Types';
+import { fetchProductsFromDB } from '@/lib/mongoDB/productQueries';
+import { fetchProductById } from '@/lib/mongoDB/productQueries';
+import { ProductType } from '@/lib/common/Types';
 
 
 type ProductDetailsProps = {

@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { ProductType } from '@/common/Types';
-import { fetchProductsFromDB } from '@/lib/productApi';
+import { ProductType } from '@/lib/common/Types';
+import { fetchProductsFromDB } from '@/lib/mongoDB/productQueries';
 
 // import { ResponseFromServer } from '@/lib/productApi';
 
