@@ -3,23 +3,23 @@ import parseMongoObj from "../utils/parseMongoObj";
 
 import { ProductType } from "@/lib/common/Types";
 import { TABLE_PRODUCTS } from "../dbTables";
+import { Mongo_FIND_OptionalParams } from "@/lib/common/Types";
 
-// export type ResponseFromServer = {
-//     title: string;
-//     content: string;
-//     _id: string;
-// };
 
-// type ProductsCollectionResponse = {
-//     data: ProductType[] | void[],
-//     error: string | null
-// }
-export async function fetchProductsFromDB(){
-// export async function fetchProductsFromDB():Promise<ProductsCollectionResponse>{
+// export async function fetchProductsFromDB({query, fields}?:Mongo_FIND_OptionalParams){
+//     if( query === undefined && !query) query = {};
+//     if( fields === undefined && !fields) fields = {};
+
+export async function fetchProductsFromDB(params?:Mongo_FIND_OptionalParams){
+    if(params === undefined || !params) params = {query:{}, fields:{}};
+    if( params.query === undefined && !params.query) params.query = {};
+    if( params.fields === undefined && !params.fields) params.fields = {};
+    const {query, fields} = params;
+    console.log("🚀 ~ file: productQueries.ts:25 ~ params:", params)
     try {
         const {client, db} = await connectToDatabase();
         const dbCollection = db.collection(TABLE_PRODUCTS);
-        const response = await dbCollection.find().toArray();
+        const response = await dbCollection.find(query, {projection: fields} ).toArray();
         // const products = response.map(product => {
         const products:ProductType[] = response.map(product => {
             return parseMongoObj(product)

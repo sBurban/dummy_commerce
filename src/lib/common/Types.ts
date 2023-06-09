@@ -4,6 +4,12 @@ export type WrapperProps = {
   children: ReactNode;
 };
 
+export type Mongo_FIND_OptionalParams = {
+    query?: {},
+    fields?: {}
+}
+
+
 
 export type ProductType = {
     _id?: string,
@@ -51,7 +57,7 @@ export type OrderItemType = {
     item_total: number,
     created_at: string,
     updated_at: string,
-    product?: ProductType
+    product?: ProductType[] // 1-1 relation: Expecting only 1 product here
 }
 
 export type PaymentType = {

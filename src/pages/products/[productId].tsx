@@ -9,12 +9,12 @@ import { ProductType } from '@/lib/common/Types';
 
 
 type ProductDetailsProps = {
-    product: ProductType
+    product: ProductType|null
 }
 
 export default function ProductDetails({product}:ProductDetailsProps) {
 
-  console.log("🚀 ~ file: [productId].tsx:16 ~ ProductDetails ~ product:", product)
+//   console.log("🚀 ~ file: [productId].tsx:16 ~ ProductDetails ~ product:", product)
 
   if(!product){
     return <>
@@ -47,12 +47,11 @@ export default function ProductDetails({product}:ProductDetailsProps) {
 export async function getStaticPaths(){
     try{
         const fieldsFilter = {fields:{id:true}};
-        const response = await fetchProductsFromDB();
+        const response = await fetchProductsFromDB(fieldsFilter);
         const products = response.data;
         const staticPaths = products.map((prod) => {
             if(prod) return { params:{ productId: ""+prod.id } }
         }).filter(r => r !== undefined? true: false);
-        console.log("🚀 ~ file: [productId].tsx:35 ~ getStaticPaths ~ staticPaths:", staticPaths)
 
         return {
             fallback: true,
@@ -73,12 +72,10 @@ export async function getStaticProps(){
         const productId = "1";
         const response = await fetchProductById(productId);
         const product = response.data;
-        // console.log("🚀 ~ file: [productId].tsx:35 ~ getStaticProps ~ product:", product)
 
         return {
             props:{
                 product: product,
-                // product: {},
             },
             revalidate: 3600
         }
