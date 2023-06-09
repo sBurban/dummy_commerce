@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 // import { initUsers } from '@/lib/productApi'
-import { initTable } from '@/lib/seederApi';
+import { initTable } from '@/lib/mongoDB/seederQueries';
 
 import { TABLE_PRODUCTS,
   TABLE_USERS,
