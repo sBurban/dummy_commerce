@@ -12,6 +12,12 @@ import { isLoginRequiredServer } from "@/lib/auth";
 import { getServerSession } from "next-auth/next"
 import { GetServerSidePropsContext, GetStaticPropsContext } from 'next';
 
+import { ListCard } from "@/components/cards/list/ListCard";
+import { TwoColumns } from "@/components/cards/list/TwoColumns";
+import { ThreeColumns } from "@/components/cards/list/ThreeColumns";
+import { Grid, Typography,  } from "@mui/material";
+import formatDate from '@/lib/utils/formatDate';
+
 type OrdersPageProps = {
     orders: OrderType[] | [],
     items: OrderItemType[] | [],
@@ -19,7 +25,7 @@ type OrdersPageProps = {
 
 const Orders = ({orders, items}:OrdersPageProps) =>{
 
-    // console.log("🚀 ~ file: orders.tsx:17 ~ Orders ~ orders:", orders)
+    console.log("🚀 ~ file: orders.tsx:17 ~ Orders ~ orders:", orders)
     // console.log("🚀 ~ file: orders.tsx:17 ~ Orders ~ items:", items)
     // return ;
 
@@ -30,39 +36,68 @@ const Orders = ({orders, items}:OrdersPageProps) =>{
             if(item.order_id === order.id){
                 if(!item.product) return;
                 const prod = item.product[0];
-                return <div className="order_item" key={prod.id}
-                    style={{
-                        border: "1px solid #f0f0f0",
-                        margin: "0.5rem"
-                    }}
-                >
-                    <p>{prod.title}</p>
-                    <p>{prod.price}</p>
-                    <p>{prod.description}</p>
-                    <p>{prod.category}</p>
-                    <p>{prod.image}</p>
-                    <p>{prod.rating.rate}</p>
-                    <p>{prod.rating.count}</p>
-                </div>;
+
+                return <ListCard key={item.id} >
+                    {/* <TwoColumns product={prod} /> */}
+                    <ThreeColumns orderItem={item} />
+                </ListCard>
             }
-        })
+        });
+
 
         return (
-            <div className="container_card" key={order.id} >
-                <div className="order_details"
-                    style={{
-                        padding: '1rem',
-                        border: "1px solid #333"
-                    }}
-                >
-                    <p>Ordered on date: {order.created_at}</p>
-                    <p>Total: {order.total}</p>
-                    <p>Order #{order.id}</p>
-                </div>
-                {orderItems}
-            </div>
+        <div key={order.id} >
+            <Grid container spacing={2} ml={0} mt={2} justifyContent="space-between" alignItems="flex-start"
+                sx={{
+                    maxWidth: "100%",
+                    maxHeight: 80,
+                    backgroundColor: "var(--mycolors_white_alt)",
+                    borderTopLeftRadius: '0.5rem',
+                    borderTopRightRadius: '0.5rem',
+                    border: "1px solid var(--mycolors_white_alt)",
+                    padding: "0.5rem 0",
+                 }}
+            >
+                    <Grid item>
+                        <Typography variant="subtitle1" component="em">
+                            Ordered on date
+                        </Typography>
+                        <Typography variant="body2" component="p">
+                            {formatDate(order.created_at)}
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="subtitle1" component="em">
+                            Total
+                        </Typography>
+                        <Typography variant="body2" component="p">
+                            ${order.total}
+                        </Typography>
 
-        )
+                    </Grid>
+                    <Grid item mr={2}>
+                        <Typography variant="subtitle1" component="em">
+                            Order #{order.id}
+                        </Typography>
+                        <Typography variant="body2" component="p">
+                            <a href="#">See Order Details</a>
+                        </Typography>
+                    </Grid>
+            </Grid>
+
+
+            <Grid
+                sx={{
+                    '& > *:last-child': {
+                        borderBottomLeftRadius: '0.5rem',
+                        borderBottomRightRadius: '0.5rem',
+                    }
+                 }}
+            >
+                {orderItems}
+            </Grid>
+
+        </div>)
     })
 
     return <>

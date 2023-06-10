@@ -169,7 +169,7 @@ export async function getStaticProps(){
         const products = response.data;
         //A 'categories' table might be nice to control this
         const categories:string[]=[];
-        products.forEach(prod =>{
+        products.map(prod =>{
             if(categories.indexOf(prod.category) === -1){
                 categories.push(prod.category);
             }

@@ -9,6 +9,11 @@ export type ProductCardProps = {
     props?: any
 }
 
+export type OrderItemProps = {
+    orderItem: OrderItemType,
+    props?:any
+}
+
 export type Mongo_FIND_OptionalParams = {
     query?: {},
     fields?: {}
@@ -49,6 +54,7 @@ export type OrderType = {
     user_id: number,
     payment_id: number,
     total: number,
+    status: string,
     created_at: string,
     updated_at: string,
 }
@@ -60,6 +66,7 @@ export type OrderItemType = {
     product_id: number,
     quantity: number,
     item_total: number,
+    status: string,
     created_at: string,
     updated_at: string,
     product?: ProductType[] // 1-1 relation: Expecting only 1 product here

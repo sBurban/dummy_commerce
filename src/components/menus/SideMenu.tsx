@@ -72,7 +72,7 @@ export const SideMenu = () => {
                 </Link>
             ))}
         </List>
-        <Divider />
+        {/* <Divider /> */}
     </div>
   );
 

@@ -51,9 +51,8 @@ export default function ProductDetails({product}:ProductDetailsProps) {
                     />
                 </Grid>
 
-                <Grid className='center_col' item container direction="column"
+                <Grid className='center_col' item container md={4} direction="column"
                     mt={2}
-                    md={4}
                     mb={2}
                 >
 
