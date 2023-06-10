@@ -33,8 +33,9 @@ export default function Products({products=[], categories=[]}:ProductsPageProps)
     const handleCategory = (e:any) => {
         const target = e.target;
         // console.log(target);
-        setCategory(target.value);
         const filtered:ProductType[] = products.filter(product => (product.category === target.value) );
+        setPrice_range('');
+        setCategory(target.value);
         setFilteredProducts(filtered);
     }
 
@@ -50,8 +51,13 @@ export default function Products({products=[], categories=[]}:ProductsPageProps)
             filtered = products.filter(product => (product.price > priceOption2) );
         }
 
+        setCategory('');
         setPrice_range(action);
         setFilteredProducts(filtered);
+    }
+
+    const activeRoute = (textval:string, stateval:string) => {
+        return textval === stateval;
     }
 
     // return;
@@ -73,7 +79,6 @@ export default function Products({products=[], categories=[]}:ProductsPageProps)
         </ListCard>;
         productsList.push(listCard);
     });
-
 
 
     const filtersColumn = <Grid
@@ -106,18 +111,21 @@ export default function Products({products=[], categories=[]}:ProductsPageProps)
                     <ListItemButton
                         id={Operations.Lower as string}
                         onClick={(e:any) => handlePrice_range(Operations.Lower as string)}
+                        selected={activeRoute(Operations.Lower as string, price_range)}
                     >
                         <ListItemText>Until ${priceOption1}</ListItemText>
                     </ListItemButton>
                     <ListItemButton
                         id={Operations.Between as string}
                         onClick={(e:any) => handlePrice_range(Operations.Between as string)}
+                        selected={activeRoute(Operations.Between as string, price_range)}
                     >
                         <ListItemText>From ${priceOption1} until ${priceOption2}</ListItemText>
                     </ListItemButton>
                     <ListItemButton
                         id={Operations.Higher as string}
                         onClick={(e:any) => handlePrice_range(Operations.Higher as string)}
+                        selected={activeRoute(Operations.Higher as string, price_range)}
                     >
                         <ListItemText>Over ${priceOption2}</ListItemText>
                     </ListItemButton>
