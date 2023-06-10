@@ -1,5 +1,7 @@
 
 import AccountWrapper from "@/components/layouts/AccountWrapper";
+import { GetServerSidePropsContext } from "next";
+import { isLoginRequiredServer } from "@/lib/auth";
 
 const Account = () =>{
     return <>
@@ -9,6 +11,16 @@ const Account = () =>{
     </>
 }
 
+export async function getServerSideProps(context:GetServerSidePropsContext) {
+    const check = await isLoginRequiredServer(context);
+    if (!check.session) return check;
+    const {session} = check;
 
+    return {
+        props: {
+          session: session
+        },
+    };
+}
 
 export default Account;

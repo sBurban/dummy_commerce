@@ -1,11 +1,12 @@
 import AccountWrapper from "@/components/layouts/AccountWrapper";
-import { ROUTE_LOGIN } from "@/lib/common/Constants";
 import { fetchOrdersFromDB, fetchOrderItemsWithProducts } from "@/lib/mongoDB/orderQueries";
 import { fetchUserByEmail } from "@/lib/mongoDB/userQueries";
 import { OrderType, OrderItemType } from "@/lib/common/Types";
 
-import { authConfig } from "@/lib/auth";
-import tsHandler from "../api/auth/[...nextauth]";
+import { isLoginRequiredServer } from "@/lib/auth";
+// import { ROUTE_LOGIN } from "@/lib/common/Constants";
+// import { authConfig } from "@/lib/auth";
+// import { loginIsRequiredServer } from "@/lib/auth";
 import { getServerSession } from "next-auth/next"
 import { GetServerSidePropsContext, GetStaticPropsContext } from 'next';
 
@@ -71,32 +72,15 @@ const Orders = ({orders, items}:OrdersPageProps) =>{
 }
 
 export async function getServerSideProps(context:GetServerSidePropsContext) {
-    const session = await getServerSession(context.req, context.res, authConfig);
-    // console.log("🚀 ~ file: orders.tsx:73 ~ getServerSideProps ~ context.req:", context.req)
-    console.log("🚀 ~ file: orders.tsx:19 ~ getServerSideProps ~ session:", session);
-    // If the user is not authenticated, redirect to the login page
-    if (!session) {
-      return {
-        redirect: {
-          destination: ROUTE_LOGIN,
-          permanent: false,
-        },
-      };
-    }
-    if(!session.user){
-        return {
-            props: {
-              orders: [],
-              items: [],
-            },
-        };
-    }
+    const check = await isLoginRequiredServer(context);
+    if (!check.session) return check;
+    const {session} = check;
 
     // Fetch additional session-related data using the session object
     try {
-
+        const userEmail = session?.user?.email || "";
         //Get User full object
-        const res1 = await fetchUserByEmail(session.user.email as string);
+        const res1 = await fetchUserByEmail(userEmail);
         const user = res1.data;
 
         //Get Orders belonging to the connected User
@@ -114,6 +98,7 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
             props:{
                 orders: orders,
                 items: orderItems,
+                session: session
             },
         }
     } catch (error) {
@@ -124,6 +109,7 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
       props: {
         orders: [],
         items: [],
+        session: session
       },
     };
 }

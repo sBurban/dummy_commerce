@@ -44,6 +44,7 @@ export async function fetchUserById(userId:string){
 
 export async function fetchUserByEmail(email:string) {
     try {
+        if(!email) throw new Error("Email must be a valid string");
         const {client, db} = await connectToDatabase();
         const dbCollection = db.collection(TABLE_USERS);
         const response = await dbCollection.findOne({ email: email });
