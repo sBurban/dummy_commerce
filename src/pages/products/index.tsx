@@ -1,10 +1,17 @@
 import CenteredWrapper from '@/components/layouts/CenteredWrapper';
 
-import React from 'react';
+import React, {useState} from 'react';
 import Link from 'next/link';
 
 import { ProductType } from '@/lib/common/Types';
 import { fetchProductsFromDB } from '@/lib/mongoDB/productQueries';
+
+import { Grid, Typography } from '@mui/material';
+import { ListCard } from '@/components/cards/list/ListCard';
+import { TwoColumns } from '@/components/cards/list/TwoColumns';
+
+
+import {InputLabel, Select, MenuItem} from '@mui/material';
 
 type ProductsPageProps = {
     products: ProductType[] | []
@@ -12,33 +19,80 @@ type ProductsPageProps = {
 
 export default function Products({products}:ProductsPageProps){
 
+    const [category, setCategory] = useState<string>("");
+    const handleCategory = (e:any) => {
+        const target = e.target;
+        // console.log(target);
+        setCategory(target.value)
+    }
+
+    const filtersColumn = <Grid
+        container
+        direction="column"
+        px={3}
+    >
+        <Grid item container direction="column" mb={3} >
+            <p>{"My_Search"}</p>
+            <p>{10} results</p>
+        </Grid >
+        <Grid item container direction="column" mb={3} >
+            <p>{"By category"}</p>
+            <Grid item container direction="column" mb={3} >
+                <InputLabel id="category_select_label" >Filter by Category</InputLabel>
+                <Select
+                    id="category_select" labelId='category_select_label'
+                    value={category}
+                    onChange={handleCategory}
+                >
+                    <MenuItem  value="jewelry">jewelry</MenuItem >
+                    <MenuItem  value="clothing">clothing</MenuItem >
+                </Select>
+            </Grid >
+            <Grid item container direction="column" mb={3} >
+                <InputLabel htmlFor="price_range"></InputLabel>
+                <ul id="price_range">
+                    <li>Until $20</li>
+                    <li>From $20 until $50</li>
+                    <li>Over $50</li>
+                </ul>
+            </Grid >
+        </Grid >
+    </Grid>;
+
     // return;
     const productsList = products.map(prod => {
-        return <div key={""+prod.id}
-            style={{
-                border: "1px solid black",
-                margin: "0.5rem"
-            }}
+        return <ListCard key={""+prod.id}
+            sx={{
+                marginBottom: '0.5rem'
+             }}
         >
-            <Link href={"/products/"+prod.id}>Product Details</Link>
-            <p>{prod.title}</p>
-            <p>{prod.price}</p>
-            <p>{prod.description}</p>
-            <p>{prod.category}</p>
-            <p>{prod.image}</p>
-            <p>{prod.rating.rate}</p>
-            <p>{prod.rating.count}</p>
-        </div>
+            <TwoColumns product={prod} />
+        </ListCard>
     })
 
     return (
-        <div>
-            <CenteredWrapper>
-                <h1>Products Page</h1>
+        <Grid container
+            direction="row"
+            pt={2}
+        >
+
+            <Grid item md={3}
+                sx={{ marginTop:{ xs:'0', md:'3rem'} }}
+            >
+                {filtersColumn}
+            </Grid>
+
+            <Grid item md={8} >
+                <Typography gutterBottom variant="h5" component="div">
+                    Results
+                </Typography>
                 {productsList}
-            </CenteredWrapper>
-        </div>
+            </Grid>
+
+        </Grid>
     );
+            // <CenteredWrapper>
+            // </CenteredWrapper>
 };
 
 

@@ -55,8 +55,8 @@ export const SideMenu = () => {
                     {/* <MenuItem selected={activeRoute(route.path, router.pathname)}> */}
                         <ListItem  disablePadding
                             sx={{
-                                // background: activeRoute(route.path, router.pathname)? "var(--primary_bar_color)": "none",
-                                color: activeRoute(route.path, router.pathname)? "var(--primary_bar_color)": "#333",
+                                // background: activeRoute(route.path, router.pathname)? "var(--mycolors_primary)": "none",
+                                color: activeRoute(route.path, router.pathname)? "var(--mycolors_primary)": "#333",
                                 // borderTop: "1px solid rgba(0, 0, 0, 0.12)",
                                 // borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
                             }}
