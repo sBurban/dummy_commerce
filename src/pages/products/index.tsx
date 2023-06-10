@@ -5,26 +5,76 @@ import Link from 'next/link';
 
 import { ProductType } from '@/lib/common/Types';
 import { fetchProductsFromDB } from '@/lib/mongoDB/productQueries';
+import capitalizeFirst from '@/lib/utils/capitalizeFirst';
 
 import { Grid, Typography } from '@mui/material';
 import { ListCard } from '@/components/cards/list/ListCard';
 import { TwoColumns } from '@/components/cards/list/TwoColumns';
 
 
-import {InputLabel, Select, MenuItem} from '@mui/material';
+import {InputLabel, Select, MenuItem, List,ListItemButton,ListItemText} from '@mui/material';
 
 type ProductsPageProps = {
     products: ProductType[] | []
+    categories: string[]
 }
 
-export default function Products({products}:ProductsPageProps){
+enum Operations {
+    Lower = "lower_than_number",
+    Between = "between_two_numbers",
+    Higher = "higher_than_number"
+}
+
+export default function Products({products=[], categories=[]}:ProductsPageProps){
+
+    const [filteredProducts, setFilteredProducts] = useState(products);
 
     const [category, setCategory] = useState<string>("");
     const handleCategory = (e:any) => {
         const target = e.target;
         // console.log(target);
-        setCategory(target.value)
+        setCategory(target.value);
+        const filtered:ProductType[] = products.filter(product => (product.category === target.value) );
+        setFilteredProducts(filtered);
     }
+
+    const [priceOption1,priceOption2] = [20,50];// PriceRangeOptions
+    const [price_range, setPrice_range] = useState("");
+    const handlePrice_range = (action:string) => {
+        let filtered:ProductType[] = products;
+        if(action == Operations.Lower){
+            filtered = products.filter(product => (product.price < priceOption1) );
+        }else if(action == Operations.Between){
+            filtered = products.filter(product => (product.price > priceOption1 && product.price < priceOption2) );
+        }else if(action == Operations.Higher){
+            filtered = products.filter(product => (product.price > priceOption2) );
+        }
+
+        setPrice_range(action);
+        setFilteredProducts(filtered);
+    }
+
+    // return;
+    // const categories:string[]=[];
+    const optionsList:React.JSX.Element[] = categories.map((category,idx) => {
+        return <MenuItem key={idx}  value={category}>
+            {capitalizeFirst(category)}
+        </MenuItem >;
+    });
+
+    const productsList:React.JSX.Element[] = [];
+    filteredProducts.forEach( (product,i) => {
+        const listCard = <ListCard key={""+product.id}
+            sx={{
+                marginBottom: '0.5rem'
+             }}
+        >
+            <TwoColumns product={product} />
+        </ListCard>;
+        productsList.push(listCard);
+    });
+
+
 
     const filtersColumn = <Grid
         container
@@ -43,32 +93,40 @@ export default function Products({products}:ProductsPageProps){
                     id="category_select" labelId='category_select_label'
                     value={category}
                     onChange={handleCategory}
+                    sx={{ background: 'var(--mycolors_white)' }}
                 >
-                    <MenuItem  value="jewelry">jewelry</MenuItem >
-                    <MenuItem  value="clothing">clothing</MenuItem >
+                    {optionsList}
                 </Select>
             </Grid >
             <Grid item container direction="column" mb={3} >
-                <InputLabel htmlFor="price_range"></InputLabel>
-                <ul id="price_range">
-                    <li>Until $20</li>
-                    <li>From $20 until $50</li>
-                    <li>Over $50</li>
-                </ul>
+                <InputLabel htmlFor="price_range_select_label">Price Range</InputLabel>
+                <List
+                    id="price_range_select"
+                >
+                    <ListItemButton
+                        id={Operations.Lower as string}
+                        onClick={(e:any) => handlePrice_range(Operations.Lower as string)}
+                    >
+                        <ListItemText>Until ${priceOption1}</ListItemText>
+                    </ListItemButton>
+                    <ListItemButton
+                        id={Operations.Between as string}
+                        onClick={(e:any) => handlePrice_range(Operations.Between as string)}
+                    >
+                        <ListItemText>From ${priceOption1} until ${priceOption2}</ListItemText>
+                    </ListItemButton>
+                    <ListItemButton
+                        id={Operations.Higher as string}
+                        onClick={(e:any) => handlePrice_range(Operations.Higher as string)}
+                    >
+                        <ListItemText>Over ${priceOption2}</ListItemText>
+                    </ListItemButton>
+                </List>
             </Grid >
         </Grid >
     </Grid>;
 
-    // return;
-    const productsList = products.map(prod => {
-        return <ListCard key={""+prod.id}
-            sx={{
-                marginBottom: '0.5rem'
-             }}
-        >
-            <TwoColumns product={prod} />
-        </ListCard>
-    })
+
 
     return (
         <Grid container
@@ -101,9 +159,18 @@ export async function getStaticProps(){
     try {
         const response = await fetchProductsFromDB();
         const products = response.data;
+        //A 'categories' table might be nice to control this
+        const categories:string[]=[];
+        products.forEach(prod =>{
+            if(categories.indexOf(prod.category) === -1){
+                categories.push(prod.category);
+            }
+        })
+
         return {
             props:{
-                products: products
+                products: products,
+                categories
             },
             revalidate: 3600
         }
@@ -112,7 +179,6 @@ export async function getStaticProps(){
     }
     return {
         props:{
-            products:[]
         },
         revalidate: 3600
     }
