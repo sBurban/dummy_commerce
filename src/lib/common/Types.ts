@@ -3,6 +3,12 @@ import React, { ReactNode } from 'react';
 export type WrapperProps = {
   children: ReactNode;
 };
+export type UserPageProps = {
+    // children: any,
+    user: UserType,
+    props?: any
+}
+
 export type ProductCardProps = {
     // children: any,
     product: ProductType,
