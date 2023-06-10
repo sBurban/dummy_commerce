@@ -1,44 +1,164 @@
 import CenteredWrapper from '@/components/layouts/CenteredWrapper';
 
-import React from 'react';
+import React, {useState} from 'react';
 import Link from 'next/link';
 
 import { ProductType } from '@/lib/common/Types';
 import { fetchProductsFromDB } from '@/lib/mongoDB/productQueries';
+import capitalizeFirst from '@/lib/utils/capitalizeFirst';
+
+import { Grid, Typography } from '@mui/material';
+import { ListCard } from '@/components/cards/list/ListCard';
+import { TwoColumns } from '@/components/cards/list/TwoColumns';
+
+
+import {InputLabel, Select, MenuItem, List,ListItemButton,ListItemText} from '@mui/material';
 
 type ProductsPageProps = {
     products: ProductType[] | []
+    categories: string[]
 }
 
-export default function Products({products}:ProductsPageProps){
+enum Operations {
+    Lower = "lower_than_number",
+    Between = "between_two_numbers",
+    Higher = "higher_than_number"
+}
+
+export default function Products({products=[], categories=[]}:ProductsPageProps){
+
+    const [filteredProducts, setFilteredProducts] = useState(products);
+
+    const [category, setCategory] = useState<string>("");
+    const handleCategory = (e:any) => {
+        const target = e.target;
+        // console.log(target);
+        const filtered:ProductType[] = products.filter(product => (product.category === target.value) );
+        setPrice_range('');
+        setCategory(target.value);
+        setFilteredProducts(filtered);
+    }
+
+    const [priceOption1,priceOption2] = [20,50];// PriceRangeOptions
+    const [price_range, setPrice_range] = useState("");
+    const handlePrice_range = (action:string) => {
+        let filtered:ProductType[] = products;
+        if(action == Operations.Lower){
+            filtered = products.filter(product => (product.price < priceOption1) );
+        }else if(action == Operations.Between){
+            filtered = products.filter(product => (product.price > priceOption1 && product.price < priceOption2) );
+        }else if(action == Operations.Higher){
+            filtered = products.filter(product => (product.price > priceOption2) );
+        }
+
+        setCategory('');
+        setPrice_range(action);
+        setFilteredProducts(filtered);
+    }
+
+    const activeRoute = (textval:string, stateval:string) => {
+        return textval === stateval;
+    }
 
     // return;
-    const productsList = products.map(prod => {
-        return <div key={""+prod.id}
-            style={{
-                border: "1px solid black",
-                margin: "0.5rem"
-            }}
+    // const categories:string[]=[];
+    const optionsList:React.JSX.Element[] = categories.map((category,idx) => {
+        return <MenuItem key={idx}  value={category}>
+            {capitalizeFirst(category)}
+        </MenuItem >;
+    });
+
+    const productsList:React.JSX.Element[] = [];
+    filteredProducts.forEach( (product,i) => {
+        const listCard = <ListCard key={""+product.id}
+            sx={{
+                marginBottom: '0.5rem'
+             }}
         >
-            <Link href={"/products/"+prod.id}>Product Details</Link>
-            <p>{prod.title}</p>
-            <p>{prod.price}</p>
-            <p>{prod.description}</p>
-            <p>{prod.category}</p>
-            <p>{prod.image}</p>
-            <p>{prod.rating.rate}</p>
-            <p>{prod.rating.count}</p>
-        </div>
-    })
+            <TwoColumns product={product} />
+        </ListCard>;
+        productsList.push(listCard);
+    });
+
+
+    const filtersColumn = <Grid
+        container
+        direction="column"
+        px={3}
+    >
+        <Grid item container direction="column" mb={3} >
+            <p>{"My_Search"}</p>
+            <p>{10} results</p>
+        </Grid >
+        <Grid item container direction="column" mb={3} >
+            <p>{"By category"}</p>
+            <Grid item container direction="column" mb={3} >
+                <InputLabel id="category_select_label" >Filter by Category</InputLabel>
+                <Select
+                    id="category_select" labelId='category_select_label'
+                    value={category}
+                    onChange={handleCategory}
+                    sx={{ background: 'var(--mycolors_white)' }}
+                >
+                    {optionsList}
+                </Select>
+            </Grid >
+            <Grid item container direction="column" mb={3} >
+                <InputLabel htmlFor="price_range_select_label">Price Range</InputLabel>
+                <List
+                    id="price_range_select"
+                >
+                    <ListItemButton
+                        id={Operations.Lower as string}
+                        onClick={(e:any) => handlePrice_range(Operations.Lower as string)}
+                        selected={activeRoute(Operations.Lower as string, price_range)}
+                    >
+                        <ListItemText>Until ${priceOption1}</ListItemText>
+                    </ListItemButton>
+                    <ListItemButton
+                        id={Operations.Between as string}
+                        onClick={(e:any) => handlePrice_range(Operations.Between as string)}
+                        selected={activeRoute(Operations.Between as string, price_range)}
+                    >
+                        <ListItemText>From ${priceOption1} until ${priceOption2}</ListItemText>
+                    </ListItemButton>
+                    <ListItemButton
+                        id={Operations.Higher as string}
+                        onClick={(e:any) => handlePrice_range(Operations.Higher as string)}
+                        selected={activeRoute(Operations.Higher as string, price_range)}
+                    >
+                        <ListItemText>Over ${priceOption2}</ListItemText>
+                    </ListItemButton>
+                </List>
+            </Grid >
+        </Grid >
+    </Grid>;
+
+
 
     return (
-        <div>
-            <CenteredWrapper>
-                <h1>Products Page</h1>
+        <Grid container
+            direction="row"
+            pt={2}
+        >
+
+            <Grid item md={3}
+                sx={{ marginTop:{ xs:'0', md:'3rem'} }}
+            >
+                {filtersColumn}
+            </Grid>
+
+            <Grid item md={8} >
+                <Typography gutterBottom variant="h5" component="div">
+                    Results
+                </Typography>
                 {productsList}
-            </CenteredWrapper>
-        </div>
+            </Grid>
+
+        </Grid>
     );
+            // <CenteredWrapper>
+            // </CenteredWrapper>
 };
 
 
@@ -47,9 +167,18 @@ export async function getStaticProps(){
     try {
         const response = await fetchProductsFromDB();
         const products = response.data;
+        //A 'categories' table might be nice to control this
+        const categories:string[]=[];
+        products.forEach(prod =>{
+            if(categories.indexOf(prod.category) === -1){
+                categories.push(prod.category);
+            }
+        })
+
         return {
             props:{
-                products: products
+                products: products,
+                categories
             },
             revalidate: 3600
         }
@@ -58,7 +187,6 @@ export async function getStaticProps(){
     }
     return {
         props:{
-            products:[]
         },
         revalidate: 3600
     }

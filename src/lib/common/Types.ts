@@ -3,6 +3,11 @@ import React, { ReactNode } from 'react';
 export type WrapperProps = {
   children: ReactNode;
 };
+export type ProductCardProps = {
+    // children: any,
+    product: ProductType,
+    props?: any
+}
 
 export type Mongo_FIND_OptionalParams = {
     query?: {},

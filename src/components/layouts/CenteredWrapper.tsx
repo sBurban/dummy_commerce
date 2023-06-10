@@ -1,7 +1,20 @@
 import React from 'react';
 import { Grid } from '@mui/material'
 
-export default function CenteredWrapper({children}:any){
+enum WidthSize {
+    "normal" = "60%",
+    "long" = "80%",
+    "full" = "100%"
+}
+
+interface WrapperProps{
+    children?: any,
+    mySize?: keyof typeof WidthSize
+}
+
+export default function CenteredWrapper({ mySize, children }:WrapperProps){
+    const wrapperWidth = mySize? WidthSize[mySize] : WidthSize.normal;
+
     return (
         <Grid container
             mt={5}
@@ -9,7 +22,7 @@ export default function CenteredWrapper({children}:any){
             alignItems="center"
             sx={{
                 margin: '1rem auto',
-                width: "60%",
+                width: `${wrapperWidth}`,
                 minheight: "100vh",
                 // backgroundColor: "#fff"
             }}
