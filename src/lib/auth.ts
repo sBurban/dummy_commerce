@@ -6,6 +6,8 @@ import { fetchUserByEmail } from "@/lib/mongoDB/userQueries";
 import { redirect } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react"
 // import { useRouter } from 'next/router';
+import { GetServerSidePropsContext, GetStaticPropsContext } from 'next';
+import { ROUTE_LOGIN } from "./common/Constants";
 
 import { Session } from 'next-auth';
 import JWT from 'next-auth'
@@ -71,11 +73,28 @@ export const authConfig:NextAuthOptions = {
     // },
 }
 
-export async function loginIsRequiredServer(){
-    const session = getServerSession(authConfig);
-    if(!session) return signIn();
-    // if(!session) return redirect("/");
+export async function isLoginRequiredServer(context:GetServerSidePropsContext){
+    console.log("🚀 ~ file: auth.ts:77 ~ isLoginRequiredServer ~ isLoginRequiredServer:")
+    const session = await getServerSession(context.req, context.res, authConfig);
+    // If the user is not authenticated, redirect to the login page
+    if (!session) {
+        return {
+            redirect: {
+                destination: ROUTE_LOGIN,
+                permanent: false,
+            },
+        };
+    }
+    return {
+        session: session
+    };
 }
+
+// export async function loginIsRequiredServer(context:GetServerSidePropsContext){
+//     const session = getServerSession(context.req, context.res, authConfig);
+//     if(!session) return signIn();
+//     // if(!session) return redirect("/");
+// }
 
 // export async function loginIsRequiredClient(){
 //     if(typeof window !== "undefined"){

@@ -1,3 +1,5 @@
+import CenteredWrapper from '@/components/layouts/CenteredWrapper';
+
 import React from 'react';
 import Link from 'next/link';
 
@@ -31,8 +33,10 @@ export default function Products({products}:ProductsPageProps){
 
     return (
         <div>
-            <h1>Products Page</h1>
-            {productsList}
+            <CenteredWrapper>
+                <h1>Products Page</h1>
+                {productsList}
+            </CenteredWrapper>
         </div>
     );
 };
