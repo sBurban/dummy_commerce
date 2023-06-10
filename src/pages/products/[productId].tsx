@@ -1,4 +1,4 @@
-
+import CenteredWrapper from '@/components/layouts/CenteredWrapper';
 
 import React from 'react'
 
@@ -25,21 +25,23 @@ export default function ProductDetails({product}:ProductDetailsProps) {
   const {image,title,price,description,category,rating}=product;
 
   return (<>
-    <div>ProductDetails</div>
-        <div
-            style={{
-                border: "1px solid black",
-                margin: "0.5rem"
-            }}
-        >
-            <p>{title}</p>
-            <p>{price}</p>
-            <p>{description}</p>
-            <p>{category}</p>
-            <p>{image}</p>
-            <p>{rating.rate}</p>
-            <p>{rating.count}</p>
+    <CenteredWrapper>
+        <div>ProductDetails</div>
+            <div
+                style={{
+                    border: "1px solid black",
+                    margin: "0.5rem"
+                }}
+            >
+                <p>{title}</p>
+                <p>{price}</p>
+                <p>{description}</p>
+                <p>{category}</p>
+                <p>{image}</p>
+                <p>{rating.rate}</p>
+                <p>{rating.count}</p>
         </div>
+    </CenteredWrapper>
   </>)
 }
 

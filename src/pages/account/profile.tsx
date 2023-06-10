@@ -1,11 +1,15 @@
 import AccountWrapper from "@/components/layouts/AccountWrapper";
+import CenteredWrapper from "@/components/layouts/CenteredWrapper";
+
 import { GetServerSidePropsContext } from "next";
 import { isLoginRequiredServer } from "@/lib/auth";
 
 const Profile = () =>{
     return <>
         <AccountWrapper>
-            <h1>Profile Page</h1>
+            <CenteredWrapper>
+                <h1>Profile Page</h1>
+            </CenteredWrapper>
         </AccountWrapper>
     </>
 }

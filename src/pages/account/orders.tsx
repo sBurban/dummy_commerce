@@ -1,4 +1,6 @@
 import AccountWrapper from "@/components/layouts/AccountWrapper";
+import CenteredWrapper from "@/components/layouts/CenteredWrapper";
+
 import { fetchOrdersFromDB, fetchOrderItemsWithProducts } from "@/lib/mongoDB/orderQueries";
 import { fetchUserByEmail } from "@/lib/mongoDB/userQueries";
 import { OrderType, OrderItemType } from "@/lib/common/Types";
@@ -65,8 +67,10 @@ const Orders = ({orders, items}:OrdersPageProps) =>{
 
     return <>
     <AccountWrapper>
-        <h1>Orders Page</h1>
-        {elemList}
+        <CenteredWrapper>
+            <h1>Orders Page</h1>
+            {elemList}
+        </CenteredWrapper>
     </AccountWrapper>
     </>
 }
