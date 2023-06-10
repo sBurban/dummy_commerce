@@ -1,5 +1,10 @@
 :root {
-  --primary_bar_color: #1976d2;
+  --mycolors_primary: #1976d2;
+  --mycolors_white: #fff;
+  --mycolors_white_alt: #f0f0f0;
+  --mycolors_black: #333;
+
+
   --max-width: 1100px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
