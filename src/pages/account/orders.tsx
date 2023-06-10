@@ -17,6 +17,7 @@ import { TwoColumns } from "@/components/cards/list/TwoColumns";
 import { ThreeColumns } from "@/components/cards/list/ThreeColumns";
 import { Grid, Typography,  } from "@mui/material";
 import formatDate from '@/lib/utils/formatDate';
+import { GridHeader } from "@/components/GridHeader";
 
 type OrdersPageProps = {
     orders: OrderType[] | [],
@@ -47,7 +48,10 @@ const Orders = ({orders, items}:OrdersPageProps) =>{
 
         return (
         <div key={order.id} >
-            <Grid container spacing={2} ml={0} mt={2} justifyContent="space-between" alignItems="flex-start"
+
+
+            <GridHeader>
+            {/* <Grid container spacing={2} ml={0} mt={2} justifyContent="space-between" alignItems="flex-start"
                 sx={{
                     maxWidth: "100%",
                     maxHeight: 80,
@@ -57,7 +61,7 @@ const Orders = ({orders, items}:OrdersPageProps) =>{
                     border: "1px solid var(--mycolors_white_alt)",
                     padding: "0.5rem 0",
                  }}
-            >
+            > */}
                     <Grid item>
                         <Typography variant="subtitle1" component="em">
                             Ordered on date
@@ -83,7 +87,8 @@ const Orders = ({orders, items}:OrdersPageProps) =>{
                             <a href="#">See Order Details</a>
                         </Typography>
                     </Grid>
-            </Grid>
+            {/* </Grid> */}
+            </GridHeader>
 
 
             <Grid
