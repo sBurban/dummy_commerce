@@ -13,21 +13,8 @@ import payments_seeder from '../../data/payments_seeder';
 import orders_seeder from '../../data/orders_seeder';
 import order_items_seeder from '../../data/order_items_seeder';
 
-import { TABLE_PRODUCTS,
-    TABLE_USERS,
-    TABLE_USER_ADDRESS,
-    TABLE_ORDERS,
-    TABLE_ORDER_ITEMS,
-    TABLE_PAYMENTS,
-} from '../dbTables';
-
-const DB_TABLES = [TABLE_PRODUCTS,
-    TABLE_USERS,
-    TABLE_USER_ADDRESS,
-    TABLE_ORDERS,
-    TABLE_ORDER_ITEMS,
-    TABLE_PAYMENTS,
-]
+import { DbTables } from '../dbTables';
+const DB_TABLES = DbTables;
 
 export async function dbFindFromCollection(TABLE_NAME:string,params?:MONGO_FIND_OptionalParams){
     if(params === undefined || !params) params = {query:{}, fields:{}};
@@ -77,5 +64,31 @@ export async function dbFindOneFromCollection(TABLE_NAME:string, params?:MONGO_F
         console.log("ERROR FINDING RECORD ON DB")
         throw new Error( (error as Error)?.message);
     }
+}
 
+type MONGO_UPDATEONE_params = {
+    query: {},
+    body: Record<string, any>
+}
+
+export async function dbUpdateOneFromCollection(TABLE_NAME:string, params?:MONGO_UPDATEONE_params){
+    try {
+        if(!params || !params.query) throw new Error(`Unexpected query object format`);
+        if(!params.body) throw new Error("Request has no [body] to update");
+        const {query, body} = params;
+
+        const {client, db} = await connectToDatabase();
+        const dbCollection = db.collection(TABLE_NAME);
+        const response = await dbCollection.updateOne(query, { $set:{ ...body } }, {upsert: false}); //i.e {id: 1}
+        // console.log("🚀 ~ file: mongoQueries.ts:97 ~ dbUpdateOneFromCollection ~ response:", response)
+        return {
+            // data: response,
+            message:"Record successfully updated",
+            error: null
+        }
+
+    } catch (error) {
+        console.log(`ERROR TRYING TO UPDATE [${TABLE_NAME} record]`)
+        throw new Error( (error as Error)?.message);
+    }
 }

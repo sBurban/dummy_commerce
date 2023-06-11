@@ -1,5 +1,8 @@
 import React, { ReactNode } from 'react';
 
+
+// PAGE PROPS TYPES
+
 export type WrapperProps = {
   children: ReactNode;
 };
@@ -20,6 +23,34 @@ export type OrderItemProps = {
     props?:any
 }
 
+export type ProfileFormData = {
+    username: string,
+    first_name: string,
+    last_name: string,
+    telephone: string
+}
+
+
+
+
+// PAGE-RELATED TYPES
+
+export enum StatusOptions {
+    SUCCESS = "success",
+    ERROR = "error",
+    WARNING = "warning",
+    INFO = "info"
+}
+
+export type AlertState = {
+    status: StatusOptions,
+    message: string,
+    isDisplay: boolean,
+}
+
+
+
+// MONGO REQUESTS TYPES
 
 export type MONGO_FIND_OptionalParams = {
     query?: {},
@@ -28,11 +59,11 @@ export type MONGO_FIND_OptionalParams = {
 export type MONGO_FINDONE_params = {
     query?: {}
 }
-// export type MONGO_COLLECTION_Response ={
-
-// }
 
 
+
+
+// DATABASE TABLE TYPES
 
 export type ProductType = {
     _id?: string,

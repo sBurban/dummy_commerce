@@ -11,7 +11,7 @@ import { Box, Grid, Typography, Button } from '@mui/material';
 import StyledImg from '@/components/StyledImg';
 import { RatingStars } from '@/components/RatingStars';
 import { Carrousel } from '@/components/cards/Carrousel';
-// import {TestCarr} from'@/components/cards/TestCarr'
+import {TestCarr} from'@/components/cards/TestCarr'
 
 type ProductDetailsProps = {
     product: ProductType|null
