@@ -12,8 +12,10 @@ import { AddressType, UserPageProps } from "@/lib/common/Types";
 import { Box, Typography, Grid } from "@mui/material";
 import { GridHeader } from "@/components/GridHeader";
 import { FormReadOnly } from "@/components/forms/FormReadOnly";
+import Link from "next/link";
 import { ListCard } from "@/components/cards/list/ListCard";
 import { Home as HomeIcon, } from "@mui/icons-material";
+
 
 type AddressesPageProps = {
     userAddressList: AddressType[],
@@ -32,6 +34,7 @@ const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
                 <Typography component="span" variant="h6" ml={2} >
                     <HomeIcon />: {user_address.address1}
                 </Typography>
+                <Link href={"/account/addresses/"+user_address.id}>More Details</Link>
             </GridHeader>
             <ListCard>
                 <Box sx={{

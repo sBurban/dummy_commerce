@@ -1,7 +1,7 @@
 
 import { connectToDatabase } from "./mongodb";
 
-import { MONGO_FIND_OptionalParams } from "../common/Types";
+import { MONGO_FIND_OptionalParams, MONGO_FINDONE_params } from "../common/Types";
 import parseMongoObj from "../utils/parseMongoObj";
 
 import users_seeder from '../../data/users_seeder';
@@ -53,4 +53,28 @@ export async function dbFindFromCollection(TABLE_NAME:string,params?:MONGO_FIND_
         console.log(`ERROR GETTING [${TABLE_NAME}] FROM DATABASE`)
         throw new Error( (error as Error)?.message);
     }
+}
+
+export async function dbFindOneFromCollection(TABLE_NAME:string, params?:MONGO_FINDONE_params){
+    // if(params === undefined || !params) params = {query:{}};
+    // if( params.query === undefined && !params.query) params.query = {};
+    try {
+        if(!params || !params.query) throw new Error(`Unexpected query object format.`);
+        if(DB_TABLES.indexOf(TABLE_NAME) === -1) throw new Error(`Table [${TABLE_NAME}] not found.`);
+
+        const {client, db} = await connectToDatabase();
+        const dbCollection = db.collection(TABLE_PRODUCTS);
+        const response = await dbCollection.findOne(params.query); //i.e {id: 1}
+        const docobj = parseMongoObj(response);
+        console.log("🚀 ~ file: mongoQueries.ts:69 ~ dbFindOneFromCollection ~ docobj:", docobj)
+        return {
+            data: docobj,
+            error: null
+        }
+
+    } catch (error) {
+        console.log("ERROR FINDING RECORD ON DB")
+        throw new Error( (error as Error)?.message);
+    }
+
 }

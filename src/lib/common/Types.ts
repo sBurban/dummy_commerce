@@ -25,6 +25,9 @@ export type MONGO_FIND_OptionalParams = {
     query?: {},
     fields?: {}
 }
+export type MONGO_FINDONE_params = {
+    query?: {}
+}
 // export type MONGO_COLLECTION_Response ={
 
 // }
