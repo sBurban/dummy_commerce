@@ -3,14 +3,14 @@ import parseMongoObj from "../utils/parseMongoObj";
 
 import { ProductType } from "@/lib/common/Types";
 import { TABLE_PRODUCTS } from "../dbTables";
-import { Mongo_FIND_OptionalParams } from "@/lib/common/Types";
+import { MONGO_FIND_OptionalParams } from "@/lib/common/Types";
 
 
-// export async function fetchProductsFromDB({query, fields}?:Mongo_FIND_OptionalParams){
+// export async function fetchProductsFromDB({query, fields}?:MONGO_FIND_OptionalParams){
 //     if( query === undefined && !query) query = {};
 //     if( fields === undefined && !fields) fields = {};
 
-export async function fetchProductsFromDB(params?:Mongo_FIND_OptionalParams){
+export async function fetchProductsFromDB(params?:MONGO_FIND_OptionalParams){
     if(params === undefined || !params) params = {query:{}, fields:{}};
     if( params.query === undefined && !params.query) params.query = {};
     if( params.fields === undefined && !params.fields) params.fields = {};

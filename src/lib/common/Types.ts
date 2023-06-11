@@ -20,10 +20,14 @@ export type OrderItemProps = {
     props?:any
 }
 
-export type Mongo_FIND_OptionalParams = {
+
+export type MONGO_FIND_OptionalParams = {
     query?: {},
     fields?: {}
 }
+// export type MONGO_COLLECTION_Response ={
+
+// }
 
 
 
@@ -51,6 +55,18 @@ export type UserType = {
     username: string,
     first_name: string,
     last_name: string,
+    telephone: string,
+}
+
+export type AddressType = {
+    _id?: string,
+    id: number,
+    user_id: number,
+    country: string,
+    city: string,
+    address1: string,
+    address2: string,
+    postal_code: string,
     telephone: string,
 }
 
