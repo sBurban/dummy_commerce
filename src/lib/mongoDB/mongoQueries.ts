@@ -56,8 +56,6 @@ export async function dbFindFromCollection(TABLE_NAME:string,params?:MONGO_FIND_
 }
 
 export async function dbFindOneFromCollection(TABLE_NAME:string, params?:MONGO_FINDONE_params){
-    // if(params === undefined || !params) params = {query:{}};
-    // if( params.query === undefined && !params.query) params.query = {};
     try {
         if(!params || !params.query) throw new Error(`Unexpected query object format.`);
         if(DB_TABLES.indexOf(TABLE_NAME) === -1) throw new Error(`Table [${TABLE_NAME}] not found.`);

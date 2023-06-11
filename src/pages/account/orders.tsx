@@ -51,17 +51,7 @@ const Orders = ({orders, items}:OrdersPageProps) =>{
 
 
             <GridHeader>
-            {/* <Grid container spacing={2} ml={0} mt={2} justifyContent="space-between" alignItems="flex-start"
-                sx={{
-                    maxWidth: "100%",
-                    maxHeight: 80,
-                    backgroundColor: "var(--mycolors_white_alt)",
-                    borderTopLeftRadius: '0.5rem',
-                    borderTopRightRadius: '0.5rem',
-                    border: "1px solid var(--mycolors_white_alt)",
-                    padding: "0.5rem 0",
-                 }}
-            > */}
+
                     <Grid item>
                         <Typography variant="subtitle1" component="em">
                             Ordered on date
@@ -87,7 +77,7 @@ const Orders = ({orders, items}:OrdersPageProps) =>{
                             <a href="#">See Order Details</a>
                         </Typography>
                     </Grid>
-            {/* </Grid> */}
+
             </GridHeader>
 
 
@@ -107,7 +97,7 @@ const Orders = ({orders, items}:OrdersPageProps) =>{
 
     return <>
     <AccountWrapper>
-        <CenteredWrapper>
+        <CenteredWrapper mySize="long" >
             <h1>Orders Page</h1>
             {elemList}
         </CenteredWrapper>

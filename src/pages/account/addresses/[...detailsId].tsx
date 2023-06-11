@@ -15,6 +15,9 @@ type AddressDetailsProps = {
 }
 
 export const addressDetails = ({user_address, ...props}:AddressDetailsProps) => {
+
+
+
   return (<>
     <AccountWrapper>
       <CenteredWrapper>
@@ -32,12 +35,8 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
   if (!check.session) return check;
   const {session} = check;
 
-// console.log(context.params);
-//   return {props: {
-//     session: session
-//   },};
   try {
-      const addressId = context?.params?.detailId as string || "";
+      const addressId = context?.params?.detailsId as string || "";
       if(!addressId) throw new Error("Unexpected params format.")
 
       // const userEmail = session?.user?.email || "";

@@ -9,10 +9,10 @@ import { dbFindFromCollection } from "@/lib/mongoDB/mongoQueries";
 import { TABLE_USER_ADDRESS } from "@/lib/dbTables";
 import { AddressType, UserPageProps } from "@/lib/common/Types";
 
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography, Grid, Link, Toolbar } from "@mui/material";
 import { GridHeader } from "@/components/GridHeader";
 import { FormReadOnly } from "@/components/forms/FormReadOnly";
-import Link from "next/link";
+// import Link from "next/link";
 import { ListCard } from "@/components/cards/list/ListCard";
 import { Home as HomeIcon, } from "@mui/icons-material";
 
@@ -30,12 +30,27 @@ const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
         });
         // return objData;
         return <Box key={idx}>
-            <GridHeader>
-                <Typography component="span" variant="h6" ml={2} >
-                    <HomeIcon />: {user_address.address1}
-                </Typography>
-                <Link href={"/account/addresses/"+user_address.id}>More Details</Link>
+            <GridHeader alignItems="center"
+                mystyle={
+                    {xs:{marginBottom: '1rem'}}
+                 }
+            >
+
+                <Grid container item alignItems="center" md={8} pt={0} >
+                    <Grid item pt={0} xs={1} px={0} mx={0}  > <HomeIcon /> </Grid>
+                    <Grid item pt={0} xs={10} >
+                        <Typography component="span" variant="h6"  sx={{ ml: { md: 2 } }} >
+                            {user_address.address1}
+                        </Typography>
+                    </Grid>
+                </Grid>
+
+                <Grid item md={2} pt={0} mr={1}  >
+                    <Link href={"/account/addresses/"+user_address.id}>More Details</Link>
+                </Grid>
+
             </GridHeader>
+
             <ListCard>
                 <Box sx={{
                     display: "flex", flexDirection:"column",
@@ -65,7 +80,7 @@ const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
 
     return <>
         <AccountWrapper>
-            <CenteredWrapper>
+            <CenteredWrapper mySize="long">
                 <h1>Addresses Page</h1>
                 {addressList}
             </CenteredWrapper>
