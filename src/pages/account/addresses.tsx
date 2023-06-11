@@ -8,9 +8,11 @@ import { fetchUserByEmail } from "@/lib/mongoDB/userQueries";
 import { dbFindFromCollection } from "@/lib/mongoDB/mongoQueries";
 import { TABLE_USER_ADDRESS } from "@/lib/dbTables";
 import { AddressType, UserPageProps } from "@/lib/common/Types";
+
 import { Box, Typography } from "@mui/material";
 import { GridHeader } from "@/components/GridHeader";
 import { FormReadOnly } from "@/components/forms/FormReadOnly";
+import Link from "next/link";
 
 type AddressesPageProps = {
     userAddressList: AddressType[],
@@ -29,6 +31,7 @@ const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
                 <Typography component="span" variant="h5" ml={2} >
                     Address: {user_address.address1}
                 </Typography>
+                <Link href={"/account/addresses/"+user_address.id}>More Details</Link>
             </GridHeader>
             <FormReadOnly data={objData} />
         </Box>;
