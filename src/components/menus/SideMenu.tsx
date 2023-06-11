@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import { ROUTE_ACCOUNT,ROUTE_ACCOUNT_ACCESS,ROUTE_ACCOUNT_ADDRESSES,ROUTE_ACCOUNT_ORDERS } from '@/lib/common/Constants';
 import { Box,Toolbar,Link,List,ListItem,ListItemButton,ListItemText,ListItemIcon, Divider } from '@mui/material';
 import {
   // Home as HomeIcon, Login as LoginIcon, AppRegistration as AppRegistrationIcon,
@@ -8,37 +9,51 @@ Settings as SettingsIcon, Person as PersonIcon, LocalShipping as AddressIcon, Sh
 } from '@mui/icons-material/';
 
 const drawerWidth = "240";
+const BASE_PATH = "account";
+const removeLastChar = (path:string) => {
+  return path.slice(0,-1);
+};
 
 export const SideMenu = () => {
   const router = useRouter();
+  console.log("🚀 ~ file: SideMenu.tsx:15 ~ SideMenu ~ router:", router.pathname)
 
   const activeRoute = (routeName:string, currentRoute:string) => {
-      return routeName === currentRoute? true : false;
+    if(routeName === currentRoute) return true;
+
+    // split by 'account/'
+    const extraParams = currentRoute.split("/");
+    if(extraParams.length < 3) return false; //Only 'account' matches, and should've being catched earlier
+
+    const mainPath = extraParams[2];
+    console.log("🚀 ~ file: SideMenu.tsx:29 ~ activeRoute ~ mainPath:", mainPath)
+    if(routeName.indexOf(mainPath) > -1) return true; //Path option includes the 2nd param of Current route
+    return false;
   }
 
   const routes = [
       {
         id: 1,
-        label:'Account',
-        path: '/account',
-        icon: <SettingsIcon />
+        label:'Profile',
+        path: removeLastChar(ROUTE_ACCOUNT),
+        icon: <PersonIcon />
       },
       {
         id: 2,
-        label: 'Profile',
-        path: '/account/profile',
-        icon: <PersonIcon />
+        label: 'Access and Security',
+        path: removeLastChar(ROUTE_ACCOUNT_ACCESS),
+        icon: <SettingsIcon />
       },
       {
         id: 3,
         label: 'Addresses',
-        path: '/account/addresses',
+        path: removeLastChar(ROUTE_ACCOUNT_ADDRESSES),
         icon: <AddressIcon />
       },
       {
         id: 4,
         label: 'Orders',
-        path: '/account/orders',
+        path: removeLastChar(ROUTE_ACCOUNT_ORDERS),
         icon: <ShoppingBagIcon />
       },
   ];

@@ -1,5 +1,6 @@
 import AccountWrapper from "@/components/layouts/AccountWrapper";
 import CenteredWrapper from "@/components/layouts/CenteredWrapper";
+import { ROUTE_ACCOUNT_ADDRESSES } from "@/lib/common/Constants";
 
 import { GetServerSidePropsContext } from "next";
 import { isLoginRequiredServer } from "@/lib/auth";
@@ -50,7 +51,7 @@ const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
                 </Grid>
 
                 <Grid item md={2} pt={0} >
-                    <Link href={"/account/addresses/"+user_address.id}>More Details</Link>
+                    <Link href={ROUTE_ACCOUNT_ADDRESSES+user_address.id}>More Details</Link>
                 </Grid>
 
             </GridHeader>

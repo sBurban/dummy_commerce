@@ -7,13 +7,14 @@ import { Grid,ButtonBase, Typography, Button } from '@mui/material'
 import StyledImg from '@/components/StyledImg';
 import capitalizeFirst from '@/lib/utils/capitalizeFirst';
 import formatDate from '@/lib/utils/formatDate';
+import { ROUTE_PRODUCTS } from '@/lib/common/Constants';
 
 export const ThreeColumns = ({orderItem, ...props}:OrderItemProps) => {
     if(!orderItem.product) return;
     const {id:itemId,order_id,product_id,quantity,item_total,status,created_at,updated_at } = orderItem;
     const {title, price, description, category, image, rating} = orderItem.product[0];
     const {rate, count} = rating;
-    const detailsUrl = "/products/"+product_id;
+    const detailsUrl = ROUTE_PRODUCTS+product_id;
 
 
   return (

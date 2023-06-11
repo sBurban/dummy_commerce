@@ -112,9 +112,8 @@ export const NavBar = ({onSearchSubmit, ...props}:any) => {
 
     const profileElement = !session? <AccountCircle />
     : <Paper sx={{ width: '3rem', height: '3rem' }}>
-      <Img alt="complex" src={session?.user?.image || "#"} />
+      <Img alt="profile image" src={session?.user?.image || "#"} />
     </Paper>
-    // : <img alt="complex" src={session?.user?.image || "#"} />
 
 
     const menuId = 'navbar-account-menu';
