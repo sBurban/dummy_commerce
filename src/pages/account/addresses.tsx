@@ -36,16 +36,20 @@ const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
                  }
             >
 
-                <Grid container item alignItems="center" md={8} pt={0} >
+                <Grid container item alignItems="center" md={8}
+                    sx={{
+                        paddingLeft: '0 !important',
+                     }}
+                >
                     <Grid item pt={0} xs={0} px={0} mx={0} > <HomeIcon /> </Grid>
                     <Grid item pt={0} xs={10} >
-                        <Typography component="span" variant="h6" sx={{ ml: { md: 2 } }} >
+                        <Typography component="span" variant="h6" sx={{ ml: { sm: 2 } }} >
                             {user_address.address1}
                         </Typography>
                     </Grid>
                 </Grid>
 
-                <Grid item md={2} pt={0} mr={1}  >
+                <Grid item md={2} pt={0} >
                     <Link href={"/account/addresses/"+user_address.id}>More Details</Link>
                 </Grid>
 
@@ -54,9 +58,11 @@ const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
             <ListCard
                 mystyle={{ borderBottomLeftRadius: "0.5rem", borderBottomRightRadius: "0.5rem", }}
             >
-                <Box sx={{
-                    display: "flex", flexDirection:"column",
-                 }}>
+                <Box ml={1}
+                    sx={{
+                        display: "flex", flexDirection:"column",
+                    }}
+                >
                     <Typography component="span" variant="subtitle1" ml={2} >
                         {user_address.city}
                     </Typography>

@@ -24,7 +24,7 @@ const AccountWrapper = ({children}:any) => {
     // }
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex' }} className='AccountWrapper' >
             <SideMenu />
             <Box component="main" sx={{ flexGrow: 1, p:3 }}>
                 {/* <Toolbar /> */}

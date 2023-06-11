@@ -198,7 +198,7 @@ export const NavBar = ({onSearchSubmit, ...props}:any) => {
 
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 }} className='Navbar' >
           <AppBar position="static">
             <Toolbar>
 

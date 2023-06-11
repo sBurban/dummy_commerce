@@ -11,7 +11,7 @@ export const ListCard = ({mystyle, children,...props}:ListCard) => {
   const customStyles = mystyle? mystyle : {};
 
   return (
-    <Paper
+    <Paper className='listcard'
         variant="outlined"
         elevation={0}
         square

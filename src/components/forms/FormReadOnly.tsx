@@ -45,7 +45,7 @@ export const FormReadOnly = ({data, ...props}:ReadOnlyProps) => {
 
 
     return (
-    <Grid className='form_body read_only' item container direction="column"
+    <Grid className='form_body form_read_only' item container direction="column"
         py={2}
         sx={{
             backgroundColor: '#fff',

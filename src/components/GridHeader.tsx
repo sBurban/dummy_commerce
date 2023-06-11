@@ -18,7 +18,8 @@ export const GridHeader = ({
   const customStyles = mystyle? mystyle : {};
 
   return (
-    <Grid container spacing={2} ml={0} mt={2} justifyContent={justifyContent} alignItems={alignItems}
+    <Grid className='Grid_header'
+        container spacing={2} ml={0} mt={2} justifyContent={justifyContent} alignItems={alignItems}
         sx={{
             maxWidth: "100%",
             maxHeight: 160,

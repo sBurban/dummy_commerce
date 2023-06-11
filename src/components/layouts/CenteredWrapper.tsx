@@ -16,7 +16,8 @@ export default function CenteredWrapper({ mySize, children }:WrapperProps){
     const wrapperWidth = mySize? WidthSize[mySize] : WidthSize.normal;
 
     return (
-        <Grid container
+        <Grid className='CenteredWrapper'
+            container
             mt={5}
             direction="column"
             alignItems="center"

@@ -79,7 +79,7 @@ export const SideMenu = () => {
 
 
   return (<>
-      <Box
+      <Box className='SideMenu'
           component="nav"
           sx={{
               width: { sm: drawerWidth },
