@@ -18,7 +18,6 @@ export default async function handlerhandler(
         const formData = req.body;
         const queryParams = { query:{ id:formData.id }, body: formData };
         const response = await dbUpdateOneFromCollection(TABLE_USERS, queryParams);
-        console.log("🚀 ~ file: profile.ts:21 ~ response:", response)
         // Send response
         res.status(200).json({ message: response.message, error:null });
       } catch (error) {

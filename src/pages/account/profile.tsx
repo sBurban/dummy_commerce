@@ -1,18 +1,15 @@
 import React, {useState} from 'react';
 import axios from 'axios'
 
-
 import { GetServerSidePropsContext } from "next";
 import { isLoginRequiredServer } from "@/lib/auth";
 import { fetchUserByEmail } from "@/lib/mongoDB/userQueries";
 import { UserPageProps } from "@/lib/common/Types";
 
-
 import AccountWrapper from "@/components/layouts/AccountWrapper";
 import CenteredWrapper from "@/components/layouts/CenteredWrapper";
 import { GridHeader } from "@/components/GridHeader";
 import { Box, Typography, Button, Alert, AlertTitle } from "@mui/material";
-
 
 import { FormReadOnly } from '@/components/forms/FormReadOnly';
 import { ProfileForm } from '@/components/forms/ProfileForm';
@@ -34,8 +31,6 @@ const Profile = ({user, ...props}:UserPageProps) =>{
     const [isEdit, setIsEdit] = useState(false);
     const [userSnapshot, setUserSnapshot] = useState(user);
 
-    console.log("🚀 ~ file: profile.tsx:27 ~ Profile ~ userSnapshot:", userSnapshot)
-
     const {username, first_name, last_name, telephone} = userSnapshot;
     const data = [
         {title: "Username", value: username},
@@ -50,14 +45,15 @@ const Profile = ({user, ...props}:UserPageProps) =>{
             const response = await axios.post('/api/forms/profile', {
                 id: user.id, ...formData
             });
-            console.log("🚀 ~ file: profile.tsx:36 ~ handleSubmit ~ response:", response.data.message);
 
             setUserSnapshot({...userSnapshot, ...formData});
             setAlert({status: StatusOptions.SUCCESS, message: response.data.message, isDisplay: true});
-            setIsEdit(false);
         } catch (error) {
             console.log("🚀 ~ file: profile.tsx:40 ~ handleSubmit ~ error:", error)
+            setAlert({status: StatusOptions.ERROR, message: "Error updating profile.", isDisplay: true});
         }
+
+        setIsEdit(false);
     }
 
     const formElem = <ProfileForm user={userSnapshot} handleSubmit={handleSubmit} />
@@ -94,6 +90,9 @@ const Profile = ({user, ...props}:UserPageProps) =>{
         </AccountWrapper>
     </>
 }
+
+
+
 
 export async function getServerSideProps(context:GetServerSidePropsContext) {
     const check = await isLoginRequiredServer(context);

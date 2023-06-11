@@ -38,7 +38,6 @@ export const ProfileForm = ({user, handleSubmit}:ProfileFormProps) => {
 
     const onSubmitAction = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // console.log("🚀 ~ file: ProfileForm.tsx:52 ~ onSubmitAction ~ onSubmitAction:", formState)
         handleSubmit(formState);
     }
 
@@ -138,13 +137,10 @@ export const ProfileForm = ({user, handleSubmit}:ProfileFormProps) => {
             </Grid>
         </Grid>
 
-        <Grid className='form_body__row' item container
-            p={1}
-        >
-            <Button type="submit">
-                Save!
-            </Button>
-        </Grid>
+        <Button type="submit" variant="contained" fullWidth={true} >
+            Save!
+        </Button>
+
     </Grid>
     </form>
 </>)
