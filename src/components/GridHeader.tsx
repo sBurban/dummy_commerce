@@ -1,13 +1,24 @@
 import React from 'react'
 import { Grid } from '@mui/material'
 
-export const GridHeader = ({children, ...props}:any) => {
-  const contentJustified = props.justifyContent? props.justifyContent : "space-between";
-  const itemAlignment = props.alignItems? props.alignItems : "flex-start";
-  const customStyles = props.mystyle? props.mystyle : {};
+interface GridHeader {
+  justifyContent?: string,
+  alignItems?: string,
+  mystyle?: {},
+  children: any,
+  props?: any
+}
+
+
+export const GridHeader = ({
+  mystyle,
+  justifyContent="space-between", alignItems="center",
+  children, ...props
+}:GridHeader) => {
+  const customStyles = mystyle? mystyle : {};
 
   return (
-    <Grid container spacing={2} ml={0} mt={2} justifyContent={contentJustified} alignItems={itemAlignment}
+    <Grid container spacing={2} ml={0} mt={2} justifyContent={justifyContent} alignItems={alignItems}
         sx={{
             maxWidth: "100%",
             maxHeight: 160,
@@ -16,6 +27,13 @@ export const GridHeader = ({children, ...props}:any) => {
             borderTopRightRadius: '0.5rem',
             border: "1px solid var(--mycolors_white_alt)",
             padding: "0.5rem 0",
+            '& > .MuiGrid-item':{
+              paddingTop: 0
+            },
+            '& > *:first-of-type':{ marginLeft: { xs:'0.8rem', md:'2.2rem' } },
+            '& > *:last-of-type':{ marginRight: { xs:'0.8rem', md:'2.2rem' } },
+            // '& > *:first-child':{ marginLeft: { xs:'0.8rem', md:'2.2rem' } },
+            // '& > *:last-child':{ marginRight: { xs:'0.8rem', md:'2.2rem' } },
             ...customStyles
         }}
         {...props}

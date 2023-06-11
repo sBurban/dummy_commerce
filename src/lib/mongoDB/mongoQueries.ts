@@ -56,13 +56,16 @@ export async function dbFindFromCollection(TABLE_NAME:string,params?:MONGO_FIND_
 }
 
 export async function dbFindOneFromCollection(TABLE_NAME:string, params?:MONGO_FINDONE_params){
+    //If querying for Id values, remember to verify if they're 'number' type first. Else the query will fail
     try {
         if(!params || !params.query) throw new Error(`Unexpected query object format.`);
         if(DB_TABLES.indexOf(TABLE_NAME) === -1) throw new Error(`Table [${TABLE_NAME}] not found.`);
+        console.log("🚀 ~ file: mongoQueries.ts:66 ~ dbFindOneFromCollection ~ params.query:", params.query)
 
         const {client, db} = await connectToDatabase();
-        const dbCollection = db.collection(TABLE_PRODUCTS);
+        const dbCollection = db.collection(TABLE_NAME);
         const response = await dbCollection.findOne(params.query); //i.e {id: 1}
+        console.log("🚀 ~ file: mongoQueries.ts:66 ~ dbFindOneFromCollection ~ response:", response)
         const docobj = parseMongoObj(response);
         console.log("🚀 ~ file: mongoQueries.ts:69 ~ dbFindOneFromCollection ~ docobj:", docobj)
         return {

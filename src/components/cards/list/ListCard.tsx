@@ -1,21 +1,14 @@
 import React from 'react'
 import { Paper, Grid } from '@mui/material'
 
-// enum Variant {
-//     long = "100%",
-//     normal = "60%",
-// }
 interface ListCard {
-  // variant?: Variant,
-  sx?: any,
+  mystyle?: {},
   children: any,
   props?: any
 }
-// export default function ListCard({children,
-//     variant=Variant.normal,
-// ...props}:ListCard){
 
-export const ListCard = ({sx, children,...props}:ListCard) => {
+export const ListCard = ({mystyle, children,...props}:ListCard) => {
+  const customStyles = mystyle? mystyle : {};
 
   return (
     <Paper
@@ -28,7 +21,7 @@ export const ListCard = ({sx, children,...props}:ListCard) => {
             // maxWidth: 600,
             flexGrow: 1,
             backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-            ...sx
+            ...customStyles
         }}
     >
         {children}

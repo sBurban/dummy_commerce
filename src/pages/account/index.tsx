@@ -25,7 +25,7 @@ const Account = ({user, ...props}:UserPageProps) =>{
     return <>
         <AccountWrapper>
             <CenteredWrapper>
-                <h1>Account Page</h1>
+                {/* <h1>Account Page</h1> */}
 
                 <Box>
                     <GridHeader >

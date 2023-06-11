@@ -15,26 +15,25 @@ export const FormReadOnly = ({data, ...props}:ReadOnlyProps) => {
 
 
 
-    // const titleElems:React.JSX.Element[] = [];
-    // const valueElems:React.JSX.Element[] = [];
     const rowElems = data.map((row,idx) => {
 
         return (
             <Grid className='form_body__row' item container key={idx}
-                p={1}
+                py={1} ml={0}
                 sx={{
-                    borderBottom: data.length!=idx+1? '1px solid var(--mycolors_white_alt)' : 'unset'
+                    borderBottom: data.length!=idx+1? '1px solid var(--mycolors_white_alt)' : 'unset',
+                    overflowWrap: "break-word",
                 }}
             >
-                <Grid className='form_body__row title_wrap' item
-                    md={4} sx={{ ml:{md:1} }}
+                <Grid item className='form_body__row title_wrap'
+                    sm={6} md={5} sx={{ ml:{md:1} }}
                 >
                     <Typography component="p" variant="subtitle1">
                         {row.title}
                     </Typography>
                 </Grid>
-                <Grid className='form_body__row value_wrap' item
-                    md={7}
+                <Grid item className='form_body__row value_wrap'
+                    sm={6} md={5}
                 >
                     <Typography component="p" variant="body1">
                         {row.value}
@@ -44,13 +43,15 @@ export const FormReadOnly = ({data, ...props}:ReadOnlyProps) => {
         )
     });
 
-    // {titleElems}
-    // {valueElems}
+
     return (
     <Grid className='form_body read_only' item container direction="column"
-        px={4} py={2}
+        py={2}
         sx={{
             backgroundColor: '#fff',
+            borderBottomLeftRadius:'0.5rem',
+            borderBottomRightRadius:'0.5rem',
+            px:{ xs:2, md:4 }
         }}
     >
         {rowElems}

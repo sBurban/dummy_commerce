@@ -83,7 +83,7 @@ const Orders = ({orders, items}:OrdersPageProps) =>{
 
             <Grid
                 sx={{
-                    '& > *:last-child': {
+                    '& > *:last-of-type': {
                         borderBottomLeftRadius: '0.5rem',
                         borderBottomRightRadius: '0.5rem',
                     }

@@ -9,19 +9,50 @@ import { dbFindOneFromCollection } from '@/lib/mongoDB/mongoQueries';
 import { TABLE_USER_ADDRESS } from '@/lib/dbTables';
 import { fetchUserByEmail } from '@/lib/mongoDB/userQueries';
 
+import { GridHeader } from '@/components/GridHeader';
+import { FormReadOnly } from '@/components/forms/FormReadOnly';
+import { Box, Typography, Button } from '@mui/material';
+
 type AddressDetailsProps = {
-  user_address: AddressType[] | null,
+  user_address: AddressType,
   props?:any
 }
 
 export const addressDetails = ({user_address, ...props}:AddressDetailsProps) => {
 
+  if(!user_address){
+    return <div>Address not found</div>
+  }
 
+  const data = Object.keys(user_address).map( (objkey:string) => {
+      return {title: objkey, value: user_address[objkey as keyof AddressType] }
+  });
+  const formReadOnlyElems = <FormReadOnly data={data} />
+
+  const detailsElem = <Box>
+    <GridHeader >
+      <Typography component="span" variant="h5" >
+          Address Details
+      </Typography>
+      <Button variant="outlined" sx={{ marginRight: '0.5rem' }}
+          // onClick={() => setIsEdit(!isEdit)}
+      >
+        Edit
+          {/* {!isEdit? "Edit" : "Cancel"} */}
+      </Button>
+    </GridHeader>
+
+    {formReadOnlyElems}
+
+  </Box>
 
   return (<>
     <AccountWrapper>
       <CenteredWrapper>
-        <div>Address Details</div>
+
+        {/* <div>Address Details</div> */}
+        {detailsElem}
+
       </CenteredWrapper>
     </AccountWrapper>
   </>)
@@ -35,9 +66,12 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
   if (!check.session) return check;
   const {session} = check;
 
+  console.log("🚀 ~ file: [...detailsId].tsx:66 ~ getServerSideProps ~ context:", context.params)
+
   try {
-      const addressId = context?.params?.detailsId as string || "";
-      if(!addressId) throw new Error("Unexpected params format.")
+      const detailsId = context?.params?.detailsId as string || "";
+      if(!detailsId) throw new Error("Unexpected params format.")
+      const addressId = parseInt(detailsId[0]);
 
       // const userEmail = session?.user?.email || "";
       // //Get User full object
@@ -57,7 +91,7 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
       }
 
   } catch (error) {
-      console.log("[PROFILE_PAGE] ERROR FETCHING DATA FROM SERVER");
+      console.log(`[${TABLE_USER_ADDRESS}] ERROR FETCHING DATA FROM SERVER`);
   }
 
   return {

@@ -18,7 +18,7 @@ import { Home as HomeIcon, } from "@mui/icons-material";
 
 
 type AddressesPageProps = {
-    userAddressList: AddressType[],
+    userAddressList: AddressType[] | [],
 } & UserPageProps
 
 const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
@@ -30,16 +30,16 @@ const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
         });
         // return objData;
         return <Box key={idx}>
-            <GridHeader alignItems="center"
+            <GridHeader
                 mystyle={
                     {xs:{marginBottom: '1rem'}}
                  }
             >
 
                 <Grid container item alignItems="center" md={8} pt={0} >
-                    <Grid item pt={0} xs={1} px={0} mx={0}  > <HomeIcon /> </Grid>
+                    <Grid item pt={0} xs={0} px={0} mx={0} > <HomeIcon /> </Grid>
                     <Grid item pt={0} xs={10} >
-                        <Typography component="span" variant="h6"  sx={{ ml: { md: 2 } }} >
+                        <Typography component="span" variant="h6" sx={{ ml: { md: 2 } }} >
                             {user_address.address1}
                         </Typography>
                     </Grid>
@@ -51,10 +51,11 @@ const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
 
             </GridHeader>
 
-            <ListCard>
+            <ListCard
+                mystyle={{ borderBottomLeftRadius: "0.5rem", borderBottomRightRadius: "0.5rem", }}
+            >
                 <Box sx={{
                     display: "flex", flexDirection:"column",
-                    borderBottomLeftRadius: "0.5rem", borderBottomRightRadius: "0.5rem",
                  }}>
                     <Typography component="span" variant="subtitle1" ml={2} >
                         {user_address.city}
@@ -81,7 +82,7 @@ const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
     return <>
         <AccountWrapper>
             <CenteredWrapper mySize="long">
-                <h1>Addresses Page</h1>
+                <h1>Your Addresses</h1>
                 {addressList}
             </CenteredWrapper>
         </AccountWrapper>
