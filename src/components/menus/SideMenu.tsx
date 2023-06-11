@@ -40,7 +40,7 @@ export const SideMenu = () => {
       },
       {
         id: 2,
-        label: 'Access and Security',
+        label: 'Settings',
         path: removeLastChar(ROUTE_ACCOUNT_ACCESS),
         icon: <SettingsIcon />
       },

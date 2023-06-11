@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import { Box,Typography,Toolbar,Link,IconButton,Badge,Paper,InputBase } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
+import { ROUTE_ACCOUNT, ROUTE_ACCOUNT_ACCESS, ROUTE_ACCOUNT_ORDERS, ROUTE_ACCOUNT_ADDRESSES } from '@/lib/common/Constants';
 
 import {
     // Menu as MenuIcon, Mail as MailIcon, Notifications as NotifyIcon,
@@ -100,12 +101,21 @@ export const NavBar = ({onSearchSubmit, ...props}:any) => {
     };
 
 
-    const handleAccountButton = () => {
-        router.push('/account');
+
+    const handleProfileButton = () => {
+        router.push(ROUTE_ACCOUNT);
         handleMenuClose();
     }
-    const handleProfileButton = () => {
-        router.push('/account/profile');
+    const handleAccountSettingsButton = () => {
+        router.push(ROUTE_ACCOUNT_ACCESS);
+        handleMenuClose();
+    }
+    const handleOrdersButton = () => {
+        router.push(ROUTE_ACCOUNT_ORDERS);
+        handleMenuClose();
+    }
+    const handleAddressesButton = () => {
+        router.push(ROUTE_ACCOUNT_ADDRESSES);
         handleMenuClose();
     }
 
@@ -133,8 +143,10 @@ export const NavBar = ({onSearchSubmit, ...props}:any) => {
           open={isMenuOpen}
           onClose={handleMenuClose}
         >
-          <MenuItem onClick={handleAccountButton}>Account</MenuItem>
           <MenuItem onClick={handleProfileButton}>Profile</MenuItem>
+          <MenuItem onClick={handleAccountSettingsButton}>Settings</MenuItem>
+          <MenuItem onClick={handleOrdersButton}>Orders</MenuItem>
+          <MenuItem onClick={handleAddressesButton}>Addresses</MenuItem>
           {session?
             <MenuItem onClick={() => signOut()}>Sign Out</MenuItem>
             :<MenuItem onClick={() => signIn()}>Sign In</MenuItem>
