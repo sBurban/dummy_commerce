@@ -8,9 +8,12 @@ import { fetchUserByEmail } from "@/lib/mongoDB/userQueries";
 import { dbFindFromCollection } from "@/lib/mongoDB/mongoQueries";
 import { TABLE_USER_ADDRESS } from "@/lib/dbTables";
 import { AddressType, UserPageProps } from "@/lib/common/Types";
-import { Box, Typography } from "@mui/material";
+
+import { Box, Typography, Grid } from "@mui/material";
 import { GridHeader } from "@/components/GridHeader";
 import { FormReadOnly } from "@/components/forms/FormReadOnly";
+import { ListCard } from "@/components/cards/list/ListCard";
+import { Home as HomeIcon, } from "@mui/icons-material";
 
 type AddressesPageProps = {
     userAddressList: AddressType[],
@@ -26,11 +29,24 @@ const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
         // return objData;
         return <Box key={idx}>
             <GridHeader>
-                <Typography component="span" variant="h5" ml={2} >
-                    Address: {user_address.address1}
+                <Typography component="span" variant="h6" ml={2} >
+                    <HomeIcon />: {user_address.address1}
                 </Typography>
             </GridHeader>
-            <FormReadOnly data={objData} />
+            <ListCard>
+                <Box sx={{
+                    display: "flex", flexDirection:"column",
+                    borderBottomLeftRadius: "0.5rem", borderBottomRightRadius: "0.5rem",
+                 }}>
+                    <Typography component="span" variant="subtitle1" ml={2} >
+                        {user_address.city}
+                    </Typography>
+                    <Typography component="span" variant="subtitle1" ml={2} >
+                        {user_address.contact_on_site}
+                    </Typography>
+                </Box>
+            </ListCard>
+            {/* <FormReadOnly data={objData} /> */}
         </Box>;
     })
 

@@ -59,9 +59,11 @@ export type UserType = {
 }
 
 export type AddressType = {
+    // [key: string]?; string;
     _id?: string,
     id: number,
     user_id: number,
+    contact_on_site: string,
     country: string,
     city: string,
     address1: string,
