@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { ROUTE_CHECKOUT_API } from '@/lib/common/Constants'
+import { ROUTE_CHECKOUT_API, ROUTE_CHECKOUT_POST_PURCHASE } from '@/lib/common/Constants'
 
 import { ProductType, UserType, AddressType, } from '@/lib/common/Types'
 import { Box, Grid, Typography, ButtonBase, Button  } from '@mui/material'
@@ -8,6 +8,7 @@ import { ListCard } from '../cards/list/ListCard'
 import StyledImg from '../StyledImg'
 import { GridHeader } from '../GridHeader'
 import {Link as MuiLink} from '@mui/material'
+import { useRouter } from 'next/router';
 
 export type CheckoutOrderItem = {
     product_id: number,
@@ -25,7 +26,7 @@ type CheckoutFormProps = {
 }
 
 export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFormProps) => {
-
+    const router = useRouter();
 
     const {address1,address2,city,postal_code,} = address;
     const shippingAddress = `${address1}|${address2}|${city}|${postal_code}`;
@@ -59,7 +60,7 @@ export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFo
             const response = await axios.post(ROUTE_CHECKOUT_API, requestBody);
             console.log("🚀 ~ file: CheckoutForm.tsx:60 ~ handleConfirmation ~ response:", response)
 
-
+            router.push(ROUTE_CHECKOUT_POST_PURCHASE);
         } catch (error) {
             console.log("🚀 ~ file: CheckoutForm.tsx:33 ~ handleConfirmation ~ error:", error)
         }

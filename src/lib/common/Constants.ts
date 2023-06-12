@@ -12,6 +12,7 @@ export const ROUTE_LOGOUT = "/api/auth/signout";
 export const ROUTE_CHECKOUT = "/checkout/"; //Redirects to Checkout_single or Home
 export const ROUTE_CHECKOUT_SINGLE = "/checkout/single";
 export const ROUTE_CHECKOUT_CART = "/checkout/cart/";
+export const ROUTE_CHECKOUT_POST_PURCHASE = "/checkout/post_purchase/"
 
 export const ROUTE_PRODUCTS = "/products/"
 export const ROUTE_PRODUCTS_API = "/api/products/"
