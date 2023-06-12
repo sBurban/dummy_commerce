@@ -60,8 +60,8 @@ export default function SingleCheckout({session, user, address}:any) {
       />
 
     return (
-      <CenteredWrapper mySize='full'>
-          <h1>SingleCheckout Page</h1>
+      <CenteredWrapper mySize='full' >
+          {/* <h1>SingleCheckout Page</h1> */}
           {displayElem}
       </CenteredWrapper>
     )

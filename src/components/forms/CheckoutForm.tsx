@@ -5,6 +5,7 @@ import { Box, Grid, Typography, ButtonBase, Button  } from '@mui/material'
 import { ListCard } from '../cards/list/ListCard'
 import StyledImg from '../StyledImg'
 import { GridHeader } from '../GridHeader'
+import {Link as MuiLink} from '@mui/material'
 
 export type CheckoutOrderItem = {
     product_id: number,
@@ -23,10 +24,21 @@ type CheckoutFormProps = {
 
 export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFormProps) => {
 
+    const handleConfirmation = () => {
+
+    }
+
+    const taxRate = 0;
+    let shippingCosts = 5;
+    let itemsCount = 0;
+    let itemSUM = 0;
+    let orderTotal = 0;
 
     const checkoutItems = itemlist.map( (item,i) => {
         const product = item.product;
         const itemTotal = product.price * item.quantity;
+        itemSUM += itemTotal;
+        itemsCount += item.quantity;
 
         return <ListCard key={i}
             mystyle={{
@@ -72,121 +84,234 @@ export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFo
                 </Grid>
             </Grid>
         </ListCard>
-    })
+    });
 
-    return (<Grid container
+    const beforeTaxes = itemSUM + shippingCosts;
+    const taxCost = itemSUM * taxRate;
+    orderTotal =  beforeTaxes + taxCost
+
+    const agreements = <>
+        <Typography variant="body2" component="div">
+            By confirming the order, you accept our
+            <MuiLink className="tos_link" href="#" underline="hover" > {"Privacy Agreement"} </MuiLink>
+            and our
+            <MuiLink className="tos_link" href="#" underline="hover" > {"Terms of Use"} </MuiLink>
+
+        </Typography>
+        <Typography variant="body2" component="div"
+        >
+            Furthermore, you accept our
+            <MuiLink className="tos_link" href="#" underline="hover" > {"Terms and Conditions"} </MuiLink>
+            here at Duhmmerce
+        </Typography>
+    </>;
+
+
+    const leftColumn = <Grid container className='col_left' md={8}
+        p={2} ml={4}
+        sx={{
+            // margin: '0.5rem auto',
+            width: `100%`,
+            minheight: "100vh",
+            '& > .MuiGrid-container:not(:last-of-type)':{
+                marginBottom: 2,
+                borderBottom: '1px solid var(--mycolors_white_alt)'
+            },
+        }}
+    >
+        <Grid container className="field_wrapper section_address"
+        >
+            <Grid className='label_container' item sm={3} >
+                <Typography component="p" variant="h5">
+                1. Shipping Address
+                </Typography>
+            </Grid>
+            <Grid item className='container_info' sm={5} >
+                <Typography variant="subtitle1" component="div" >
+                    {address.contact_on_site}
+                </Typography>
+                <Typography variant="subtitle1" component="div" >
+                    {address.address1}
+                </Typography>
+                <Typography variant="subtitle1" component="div" >
+                    {address.address2}
+                </Typography>
+                <Typography variant="subtitle1" component="div" >
+                    {`${address.city}, ${address.postal_code}`}
+                </Typography>
+            </Grid>
+            <Grid item sm={3} >
+                <Button variant="text">
+                    Change
+                </Button>
+            </Grid>
+        </Grid>
+
+        <Grid container className="field_wrapper section_payment_method"
+            // direction="column" alignItems="center"
+        >
+            <Grid item className='label_container' sm={3} >
+                <Typography component="p" variant="h5">
+                2. Payment Method
+                </Typography>
+            </Grid>
+            <Grid item className='container_info' sm={5} >
+                <Typography variant="subtitle1" component="div" >
+                    <span>Duhmmerce Ecard</span> with last numbers 1234
+                </Typography>
+                <Typography variant="subtitle1" component="div" >
+                    <span>Click here</span> to see monthly pay options
+                </Typography>
+                <Typography variant="subtitle1" component="div" >
+                    <span>Card Address: </span> same as shipping address
+                </Typography>
+            </Grid>
+            <Grid item sm={3} >
+                <Button variant="text">
+                    Change
+                </Button>
+            </Grid>
+        </Grid>
+
+        <Grid container className="field_wrapper section_items" direction="column"
+
+        >
+            <Grid item className='label_container' >
+                <Typography component="p" variant="h5">
+                    3. Check products and shipping date
+                </Typography>
+            </Grid>
+            <Grid className="items_header" container item
+                sx={{
+                    margin: '1rem auto',
+                    width: `90%`,
+                }}
+            >
+                <GridHeader
+                    mystyle={{
+                        // minHeight: 80
+                    }}
+                >
+                    <Grid item sm={8} >
+                        <Typography variant="h6" component="div"
+                            // sx={{ '&:hover':{fontWeight: 600} }}
+                        >
+                            Your product will be arriving in [between a week or two]
+                        </Typography>
+                    </Grid>
+                    <Grid item sm={2} >
+                        <Typography variant="h6" component="div"
+                            // sx={{ '&:hover':{fontWeight: 600} }}
+                        >
+                            {"Shipping: $5"}
+                        </Typography>
+                    </Grid>
+                </GridHeader>
+
+                {checkoutItems}
+            </Grid>
+            <Grid className="checkout_button_wrapper" container item
+                sx={{
+                    margin: '1rem auto',
+                    width: `90%`,
+                }}
+            >
+                <ListCard mystyle={{ borderRadius:"0.5rem" }} >
+                    <Grid item container >
+                        <Grid item container xs={3} alignItems={"center"} >
+                            <div>
+                                <Button variant="contained"
+                                    sx={{  }}
+                                >Confirm Payment</Button>
+                            </div>
+                        </Grid>
+                        <Grid item container xs={7} direction="column" >
+                            <Typography variant="h5" component="div"
+                                sx={{ color:"red" }}
+                            >
+                                Order Total: ${orderTotal}
+                            </Typography>
+                            {agreements}
+                        </Grid>
+                    </Grid>
+                </ListCard>
+            </Grid>
+        </Grid>
+    </Grid>;
+
+
+    const rightColumn =
+    <Grid item container className='right_col' direction="column" md={2} p={2} >
+        <ListCard
+            mystyle={{
+                borderRadius:'0.5rem'
+             }}
+        >
+                <Grid item container className='checkout_button_wrapper' direction="column"
+                    sx={{
+                        borderBottom: '1px solid var(--mycolors_black)',
+                        '& > *':{ marginBottom: '1rem'}
+                    }}
+                >
+                    {/* <Grid item container alignItems={"center"} > */}
+                        <Button variant="contained"
+                            sx={{  }}
+                        >Confirm Payment</Button>
+                    {/* </Grid> */}
+                    <Grid item container   direction="column">
+                        {agreements}
+                    </Grid>
+                </Grid>
+                <Grid item container className='checkout_details'
+                    sx={{
+                        '& > *':{ marginTop: '1rem'}
+                     }}
+                >
+                    <Typography component="p" variant="h5">Order Confirmation</Typography>
+                    <Grid className='detail_row'  container justifyContent={"space-between"}>
+                        <Grid item>Items({itemsCount}):</Grid>
+                        <Grid item>${itemSUM}</Grid>
+                    </Grid>
+                    <Grid className='detail_row'  container justifyContent={"space-between"}
+                        // sx={{ borderBottom: '1px solid var(--mycolors_black)'  }}
+                    >
+                        <Grid item xs={6}>Shipping costs:</Grid>
+                        <Grid item xs={6} textAlign={"end"}
+                            sx={{ borderBottom: '1px solid var(--mycolors_black)'  }}
+                        >${shippingCosts}</Grid>
+                    </Grid>
+                    <Grid className='detail_row'  container justifyContent={"space-between"}>
+                        <Grid item xs={6} >Before Taxes:</Grid>
+                        <Grid item xs={6} textAlign={"end"}  >${beforeTaxes}</Grid>
+                    </Grid>
+                    <Grid className='detail_row'  container justifyContent={"space-between"}>
+                        <Grid item xs={6} >Taxes:</Grid>
+                        <Grid item xs={6} textAlign={"end"}  >${taxCost}</Grid>
+                    </Grid>
+                    <Grid className='detail_row total' container justifyContent={"space-between"}
+                        sx={{
+                            color:'red',
+                            typography: ''
+                        }}
+                    >
+
+                        <Grid item xs={6}>
+                            <Typography variant="h5" component="div"sx={{ color:"red" }}>Total:</Typography>
+                        </Grid>
+                        <Grid item xs={6} textAlign={"end"} alignItems={"flex-end"}  >
+                            <Typography variant="h5" component="div"sx={{ color:"red" }}>${orderTotal}</Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+        </ListCard>
+    </Grid>
+
+    return (<Grid container className='checkout_form_container' spacing={2}
         sx={{
             backgroundColor: "var(--mycolors_white)"
         }}
     >
-
-
-        <Grid container className='col_left'
-            // direction="column" alignItems="center"
-            p={2}
-            sx={{
-                margin: '1rem auto',
-                width: `100%`,
-                minheight: "100vh",
-                '& > .MuiGrid-container':{
-                    marginBottom: 2
-                },
-            }}
-        >
-            <Grid container className="field_wrapper section_address"
-            >
-                <Grid className='label_container' item sm={3} >
-                    <Typography component="p" variant="h5">
-                       1. Shipping Address
-                    </Typography>
-                </Grid>
-                <Grid item className='container_info' sm={5} >
-                    <Typography variant="subtitle1" component="div" >
-                        {address.contact_on_site}
-                    </Typography>
-                    <Typography variant="subtitle1" component="div" >
-                        {address.address1}
-                    </Typography>
-                    <Typography variant="subtitle1" component="div" >
-                        {address.address2}
-                    </Typography>
-                    <Typography variant="subtitle1" component="div" >
-                        {`${address.city}, ${address.postal_code}`}
-                    </Typography>
-                </Grid>
-                <Grid item sm={3} >
-                    <Button variant="text">
-                        Change
-                    </Button>
-                </Grid>
-            </Grid>
-
-            <Grid container className="field_wrapper section_payment_method"
-                // direction="column" alignItems="center"
-            >
-                <Grid item className='label_container' sm={3} >
-                    <Typography component="p" variant="h5">
-                       2. Payment Method
-                    </Typography>
-                </Grid>
-                <Grid item className='container_info' sm={5} >
-                    <Typography variant="subtitle1" component="div" >
-                        <span>Duhmmerce Ecard</span> with last numbers 1234
-                    </Typography>
-                    <Typography variant="subtitle1" component="div" >
-                        <span>Click here</span> to see monthly pay options
-                    </Typography>
-                    <Typography variant="subtitle1" component="div" >
-                        <span>Card Address: </span> same as shipping address
-                    </Typography>
-                </Grid>
-                <Grid item sm={3} >
-                    <Button variant="text">
-                        Change
-                    </Button>
-                </Grid>
-            </Grid>
-
-            <Grid container className="field_wrapper section_items"
-                direction="column"
-            >
-                <Grid item className='label_container' >
-                    <Typography component="p" variant="h5">
-                        3. Check products and shipping date
-                    </Typography>
-                </Grid>
-                <Grid className="items_header" container item
-
-                >
-                    <GridHeader
-                        mystyle={{
-                            // minHeight: 80
-                         }}
-                    >
-                        <Grid item sm={8} >
-                            <Typography variant="h6" component="div"
-                                // sx={{ '&:hover':{fontWeight: 600} }}
-                            >
-                                Your product will be arriving in [between a week or two]
-                            </Typography>
-                        </Grid>
-                        <Grid item sm={2} >
-                            <Typography variant="h6" component="div"
-                                // sx={{ '&:hover':{fontWeight: 600} }}
-                            >
-                                {"Shipping: $5"}
-                            </Typography>
-                        </Grid>
-                    </GridHeader>
-
-                    {checkoutItems}
-                </Grid>
-
-            </Grid>
-        </Grid>
-
-
-
-
+        {leftColumn}
+        {rightColumn}
     </Grid>)
 }
