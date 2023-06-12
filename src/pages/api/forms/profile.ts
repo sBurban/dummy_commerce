@@ -29,4 +29,4 @@ export default async function handlerhandler(
     } else {
         res.status(405).json({ message: "Method Not Allowed", error:"Method Not Allowed" });
     }
-  }
+}

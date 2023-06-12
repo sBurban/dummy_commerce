@@ -77,6 +77,7 @@ export async function dbUpdateOneFromCollection(TABLE_NAME:string, params?:MONGO
         if(!params.body) throw new Error("Request has no [body] to update");
         const {query, body} = params;
 
+        if(DB_TABLES.indexOf(TABLE_NAME) === -1) throw new Error(`Table [${TABLE_NAME}] not found.`);
         const {client, db} = await connectToDatabase();
         const dbCollection = db.collection(TABLE_NAME);
         const response = await dbCollection.updateOne(query, { $set:{ ...body } }, {upsert: false}); //i.e {id: 1}
@@ -89,6 +90,68 @@ export async function dbUpdateOneFromCollection(TABLE_NAME:string, params?:MONGO
 
     } catch (error) {
         console.log(`ERROR TRYING TO UPDATE [${TABLE_NAME} record]`)
+        throw new Error( (error as Error)?.message);
+    }
+}
+
+export async function dbCreateOneFromCollection(TABLE_NAME:string, document:any){
+    try {
+        if(!document) throw new Error("Request has no [body] object");
+
+        if(DB_TABLES.indexOf(TABLE_NAME) === -1) throw new Error(`Table [${TABLE_NAME}] not found.`);
+        const {client, db} = await connectToDatabase();
+        const dbCollection = db.collection(TABLE_NAME);
+        const response = await dbCollection.insertOne(document); //i.e {id: 1}
+        console.log(`🚀 ~ file: mongoQueries.ts:105 ~ dbCreateOneFromCollection ~ [${TABLE_NAME}]:`, response)
+        return {
+            data: response,
+            message:"Record successfully created",
+            error: null
+        }
+
+    } catch (error) {
+        console.log(`ERROR TRYING TO CREATE [${TABLE_NAME} record]`)
+        throw new Error( (error as Error)?.message);
+    }
+}
+
+export async function dbCreateManyFromCollection(TABLE_NAME:string, documents:any[]){
+    try {
+        if(!documents) throw new Error("Request has no [body] object");
+
+        if(DB_TABLES.indexOf(TABLE_NAME) === -1) throw new Error(`Table [${TABLE_NAME}] not found.`);
+        const {client, db} = await connectToDatabase();
+        const dbCollection = db.collection(TABLE_NAME);
+        const response = await dbCollection.insertMany(documents); //i.e {id: 1}
+        console.log(`🚀 ~ file: mongoQueries.ts:126 ~ dbCreateManyFromCollection ~ [${TABLE_NAME}]:`, response)
+        return {
+            data: response,
+            message:"Records successfully created",
+            error: null
+        }
+
+    } catch (error) {
+        console.log(`ERROR TRYING TO CREATE [${TABLE_NAME} records]`)
+        throw new Error( (error as Error)?.message);
+    }
+}
+
+export async function dbCountFromCollection(TABLE_NAME:string){
+    try {
+        if(DB_TABLES.indexOf(TABLE_NAME) === -1) throw new Error(`Table [${TABLE_NAME}] not found.`);
+
+        const {client, db} = await connectToDatabase();
+        const dbCollection = db.collection(TABLE_NAME);
+        const response = await dbCollection.countDocuments(); //i.e {id: 1}
+        console.log(`🚀 ~ file: mongoQueries.ts:146 ~ dbCountFromCollection ~ [${TABLE_NAME}]:`, response)
+        return response;
+        // return {
+        //     data: response,
+        //     message:"Records successfully created",
+        //     error: null
+        // }
+    } catch (error) {
+        console.log(`ERROR TRYING TO COUNT [${TABLE_NAME} records]`)
         throw new Error( (error as Error)?.message);
     }
 }

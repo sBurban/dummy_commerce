@@ -111,9 +111,10 @@ export type OrderType = {
     _id?: string,
     id: number,
     user_id: number,
-    payment_id: number,
+    // payment_id: number,
     total: number,
     status: string,
+    shipping_address: string,
     created_at: string,
     updated_at: string,
 }
@@ -126,6 +127,7 @@ export type OrderItemType = {
     quantity: number,
     item_total: number,
     status: string,
+    shipping_address: string,
     created_at: string,
     updated_at: string,
     product?: ProductType[] // 1-1 relation: Expecting only 1 product here
@@ -139,6 +141,9 @@ export type PaymentType = {
     amount: number,
     provider: string,
     status: string,
+    shipping_address: string,
+    payment_method: string,
+    card_number: string,
     created_at: string,
     updated_at: string,
 }

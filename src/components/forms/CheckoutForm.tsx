@@ -1,4 +1,6 @@
 import React from 'react'
+import axios from 'axios'
+import { ROUTE_CHECKOUT_API } from '@/lib/common/Constants'
 
 import { ProductType, UserType, AddressType, } from '@/lib/common/Types'
 import { Box, Grid, Typography, ButtonBase, Button  } from '@mui/material'
@@ -24,9 +26,10 @@ type CheckoutFormProps = {
 
 export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFormProps) => {
 
-    const handleConfirmation = () => {
 
-    }
+    const {address1,address2,city,postal_code,} = address;
+    const shippingAddress = `${address1}|${address2}|${city}|${postal_code}`;
+    const newOrderItems:any[] = [];
 
     const taxRate = 0;
     let shippingCosts = 5;
@@ -34,11 +37,49 @@ export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFo
     let itemSUM = 0;
     let orderTotal = 0;
 
+    const handleConfirmation = async() => {
+        const currentDate = new Date().toJSON();
+        //Submit order
+        try {
+
+            const requestBody = {
+                orderitems: newOrderItems,
+                total: orderTotal,
+                user,
+                shipping_address: shippingAddress,
+                payment_data: {
+                    // user_id: user.id,
+                    provider: "BankOfCountry",
+                    status:"pending",
+                    payment_method: "card",
+                    card_number: "789-456-1234",
+                },
+                current_date: currentDate,
+            }
+            const response = await axios.post(ROUTE_CHECKOUT_API, requestBody);
+            console.log("🚀 ~ file: CheckoutForm.tsx:60 ~ handleConfirmation ~ response:", response)
+
+
+        } catch (error) {
+            console.log("🚀 ~ file: CheckoutForm.tsx:33 ~ handleConfirmation ~ error:", error)
+        }
+    }
+
+
     const checkoutItems = itemlist.map( (item,i) => {
         const product = item.product;
         const itemTotal = product.price * item.quantity;
         itemSUM += itemTotal;
         itemsCount += item.quantity;
+
+        const newItemObj = {
+            product_id: product.id,
+            quantity: item.quantity,
+            item_total: itemTotal,
+            status: "preparing",
+            // shipping_address: shippingAddress,
+        };
+        newOrderItems.push(newItemObj);
 
         return <ListCard key={i}
             mystyle={{
@@ -141,7 +182,7 @@ export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFo
                 </Typography>
             </Grid>
             <Grid item sm={3} >
-                <Button variant="text">
+                <Button variant="text" >
                     Change
                 </Button>
             </Grid>
@@ -220,7 +261,7 @@ export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFo
                     <Grid item container >
                         <Grid item container xs={3} alignItems={"center"} >
                             <div>
-                                <Button variant="contained"
+                                <Button variant="contained" onClick={() => handleConfirmation()}
                                     sx={{  }}
                                 >Confirm Payment</Button>
                             </div>
@@ -254,7 +295,7 @@ export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFo
                     }}
                 >
                     {/* <Grid item container alignItems={"center"} > */}
-                        <Button variant="contained"
+                        <Button variant="contained" onClick={() => handleConfirmation()}
                             sx={{  }}
                         >Confirm Payment</Button>
                     {/* </Grid> */}
