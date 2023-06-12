@@ -10,7 +10,7 @@ import { dbFindFromCollection } from "@/lib/mongoDB/mongoQueries";
 import { TABLE_USER_ADDRESS } from "@/lib/dbTables";
 import { AddressType, UserPageProps } from "@/lib/common/Types";
 
-import { Box, Typography, Grid, Link, Toolbar } from "@mui/material";
+import { Box, Typography, Grid, Link, Toolbar, Chip } from "@mui/material";
 import { GridHeader } from "@/components/GridHeader";
 import { FormReadOnly } from "@/components/forms/FormReadOnly";
 // import Link from "next/link";
@@ -37,7 +37,7 @@ const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
                  }
             >
 
-                <Grid container item alignItems="center" md={8}
+                <Grid container item alignItems="center" md={6}
                     sx={{
                         paddingLeft: '0 !important',
                      }}
@@ -49,6 +49,20 @@ const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
                         </Typography>
                     </Grid>
                 </Grid>
+
+                {user_address.isDefault &&
+                    <Grid container item alignItems="center" md={2} >
+                        <Chip label="Default" color="primary"
+                            sx={{
+                                // backgroundColor: "#1cad1c87",
+                                // color: "#21c421",
+                                // color: "#2e7d32",
+                                // color: "#005804",
+                                '& > span':{overflow: "visible"}
+                            }}
+                        />
+                    </Grid>
+                }
 
                 <Grid item md={2} pt={0} >
                     <Link href={ROUTE_ACCOUNT_ADDRESSES+user_address.id}>More Details</Link>

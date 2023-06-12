@@ -104,6 +104,7 @@ export type AddressType = {
     address2: string,
     postal_code: string,
     telephone: string,
+    isDefault: boolean,
 }
 
 export type OrderType = {
