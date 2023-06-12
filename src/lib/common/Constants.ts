@@ -14,5 +14,6 @@ export const ROUTE_CHECKOUT_SINGLE = "/checkout/single";
 export const ROUTE_CHECKOUT_CART = "/checkout/cart/";
 
 export const ROUTE_PRODUCTS = "/products/"
+export const ROUTE_PRODUCTS_API = "/api/products/"
 
 export const SINGLE_CHECKOUT_NAME = "one_checkout";

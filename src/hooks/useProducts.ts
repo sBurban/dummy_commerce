@@ -2,13 +2,15 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import { ProductType } from '@/lib/common/Types';
 
-const BASEURL = '/api/products';
+import { ROUTE_PRODUCTS_API } from '@/lib/common/Constants';
+// const BASEURL = '/api/products';
 
 type ProductFilteringParams = {
+    id?: number
     category?: string,
 }
 
-const useProducts = ({category}:ProductFilteringParams) => {
+const useProducts = ({id, category}:ProductFilteringParams) => {
     const [products, setProducts] = useState<ProductType[]>([]);
     const [error, setError] = useState<string|null>(null);
     useEffect(() => {
@@ -17,13 +19,12 @@ const useProducts = ({category}:ProductFilteringParams) => {
     const getProducts = async () => {
         try {
             let extraParams = "";
-            // if(id){
-            //     extraParams ="?id="+id;
-            // }else
-            if(category){
+            if(id){
+                extraParams ="?id="+id;
+            }else if(category){
                 extraParams = "?category="+category;
             }
-            const result = await axios.get( BASEURL + extraParams );
+            const result = await axios.get( ROUTE_PRODUCTS_API + extraParams );
             setProducts(result.data.products)
         } catch (error) {
             setError("Unexpected error loading products")

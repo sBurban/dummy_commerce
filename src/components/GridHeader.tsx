@@ -22,6 +22,7 @@ export const GridHeader = ({
         container spacing={2} ml={0} mt={2} justifyContent={justifyContent} alignItems={alignItems}
         sx={{
             maxWidth: "100%",
+            minHeight: 80,
             maxHeight: 160,
             backgroundColor: "var(--mycolors_white_alt)",
             borderTopLeftRadius: '0.5rem',
