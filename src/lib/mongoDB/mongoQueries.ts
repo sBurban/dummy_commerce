@@ -13,7 +13,7 @@ import payments_seeder from '../../data/payments_seeder';
 import orders_seeder from '../../data/orders_seeder';
 import order_items_seeder from '../../data/order_items_seeder';
 
-import { DbTables } from '../dbTables';
+import { DbTables } from '../common/dbTables';
 const DB_TABLES = DbTables;
 
 export async function dbFindFromCollection(TABLE_NAME:string,params?:MONGO_FIND_OptionalParams){

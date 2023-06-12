@@ -10,7 +10,7 @@ import { TABLE_PRODUCTS,
     TABLE_ORDERS,
     TABLE_ORDER_ITEMS,
     TABLE_PAYMENTS,
-} from '../dbTables';
+} from '../common/dbTables';
 
 import users_seeder from '../../data/users_seeder';
 import user_address_seeder from '../../data/user_address_seeder';

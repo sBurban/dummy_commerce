@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { dbUpdateOneFromCollection } from '@/lib/mongoDB/mongoQueries';
-import { TABLE_USERS } from '@/lib/dbTables';
+import { TABLE_USERS } from '@/lib/common/dbTables';
 
 type Data = {
     message?: string,

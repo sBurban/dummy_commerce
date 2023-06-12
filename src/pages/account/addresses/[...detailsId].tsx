@@ -6,7 +6,7 @@ import { AddressType } from '@/lib/common/Types';
 import { isLoginRequiredServer } from '@/lib/auth';
 // import { dbFindFromCollection } from '@/lib/mongoDB/mongoQueries';
 import { dbFindOneFromCollection } from '@/lib/mongoDB/mongoQueries';
-import { TABLE_USER_ADDRESS } from '@/lib/dbTables';
+import { TABLE_USER_ADDRESS } from '@/lib/common/dbTables';
 import { fetchUserByEmail } from '@/lib/mongoDB/userQueries';
 
 import { GridHeader } from '@/components/GridHeader';

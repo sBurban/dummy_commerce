@@ -13,11 +13,19 @@ import { RatingStars } from '@/components/RatingStars';
 import { Carrousel } from '@/components/cards/Carrousel';
 import {TestCarr} from'@/components/cards/TestCarr'
 
+
+import { useSession, signIn, signOut } from "next-auth/react"
+import { setSessionData } from '@/lib/utils/singleCheckout';
+import { useRouter } from 'next/router';
+import { ROUTE_CHECKOUT_SINGLE } from '@/lib/common/Constants';
+
 type ProductDetailsProps = {
     product: ProductType|null
 }
 
 export default function ProductDetails({product}:ProductDetailsProps) {
+    const { data: session } = useSession();
+    const router = useRouter();
 
 //   console.log("🚀 ~ file: [productId].tsx:16 ~ ProductDetails ~ product:", product)
   if(!product){
@@ -27,6 +35,11 @@ export default function ProductDetails({product}:ProductDetailsProps) {
   }
 
   const {id:productId, image,title,price,description,category,rating}=product;
+
+  const handleBuyNow = () => {
+    setSessionData(productId);
+    router.push(ROUTE_CHECKOUT_SINGLE);
+  }
 
   return (<>
     <CenteredWrapper mySize="long">
@@ -85,7 +98,9 @@ export default function ProductDetails({product}:ProductDetailsProps) {
                         </Typography>
 
                         <Grid item  container direction="column" mt={2} >
-                            <Button variant="contained" sx={{ marginTop: '0.5rem', padding:'0.5rem' }}>
+                            <Button variant="contained" sx={{ marginTop: '0.5rem', padding:'0.5rem' }}
+                                onClick={handleBuyNow}
+                            >
                                 Buy Now
                             </Button>
                             <Button variant="outlined" sx={{ marginTop: '0.5rem', padding:'0.5rem' }}>

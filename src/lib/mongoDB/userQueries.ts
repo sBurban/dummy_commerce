@@ -2,7 +2,7 @@ import { connectToDatabase } from "./mongodb";
 import parseMongoObj from "../utils/parseMongoObj";
 
 import { UserType } from "@/lib/common/Types";
-import { TABLE_USERS } from "../dbTables";
+import { TABLE_USERS } from "../common/dbTables";
 
 export async function fetchUsersFromDB(){
     try {
