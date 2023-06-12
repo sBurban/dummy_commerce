@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link';
 import { ProductCardProps } from '@/lib/common/Types';
+import { ROUTE_PRODUCTS } from '@/lib/common/Constants';
 
 import { Grid,ButtonBase, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles';
@@ -17,7 +18,7 @@ import StyledImg from '@/components/StyledImg';
 export const TwoColumns = ({product, ...props}:ProductCardProps) => {
     const {id, title, price, description, category, image, rating} = product;
     const {rate, count} = rating;
-    const detailsUrl = "/products/"+id;
+    const detailsUrl = ROUTE_PRODUCTS+id;
 
     return (
         <Grid container spacing={2}

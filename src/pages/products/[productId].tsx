@@ -11,7 +11,7 @@ import { Box, Grid, Typography, Button } from '@mui/material';
 import StyledImg from '@/components/StyledImg';
 import { RatingStars } from '@/components/RatingStars';
 import { Carrousel } from '@/components/cards/Carrousel';
-// import {TestCarr} from'@/components/cards/TestCarr'
+import {TestCarr} from'@/components/cards/TestCarr'
 
 type ProductDetailsProps = {
     product: ProductType|null
@@ -51,9 +51,8 @@ export default function ProductDetails({product}:ProductDetailsProps) {
                     />
                 </Grid>
 
-                <Grid className='center_col' item container direction="column"
+                <Grid className='center_col' item container md={4} direction="column"
                     mt={2}
-                    md={4}
                     mb={2}
                 >
 
