@@ -2,22 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 // import { initUsers } from '@/lib/productApi'
 import { initTable } from '@/lib/mongoDB/seederQueries';
-
-import { TABLE_PRODUCTS,
-  TABLE_USERS,
-  TABLE_USER_ADDRESS,
-  TABLE_ORDERS,
-  TABLE_ORDER_ITEMS,
-  TABLE_PAYMENTS,
-} from '@/lib/dbTables';
-
-const DbTables = [TABLE_PRODUCTS,
-  TABLE_USERS,
-  TABLE_USER_ADDRESS,
-  TABLE_ORDERS,
-  TABLE_ORDER_ITEMS,
-  TABLE_PAYMENTS,
-]
+import { DbTables } from '@/lib/dbTables';
 
 type Data = {
   message?: string,

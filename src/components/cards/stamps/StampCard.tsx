@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
+import { ROUTE_PRODUCTS } from '@/lib/common/Constants';
 
 import { ProductCardProps } from '@/lib/common/Types'
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material'
@@ -11,7 +12,7 @@ type StampCardProps = ProductCardProps & {
 export const StampCard = ({product, sx, ...props}:StampCardProps) => {
     const {id, title, price, description, category, image, rating} = product;
     const {rate, count} = rating;
-    const detailsUrl = "/products/"+id;
+    const detailsUrl = ROUTE_PRODUCTS+id;
 
     const stampCard =
     <Link href={detailsUrl}

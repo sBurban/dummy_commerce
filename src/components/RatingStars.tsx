@@ -19,7 +19,7 @@ export const RatingStars = ({value}:RatingStarsProps) => {
     </>
 
   return (
-    <Box
+    <Box className='rating_stars'
         sx={{
             // '& > legend': { mt: 2 },
             '& > legend': { ms: 2 },
