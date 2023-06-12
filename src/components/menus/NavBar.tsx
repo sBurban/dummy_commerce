@@ -145,8 +145,8 @@ export const NavBar = ({onSearchSubmit, ...props}:any) => {
         >
           <MenuItem onClick={handleProfileButton}>Profile</MenuItem>
           <MenuItem onClick={handleAccountSettingsButton}>Settings</MenuItem>
-          <MenuItem onClick={handleOrdersButton}>Orders</MenuItem>
           <MenuItem onClick={handleAddressesButton}>Addresses</MenuItem>
+          <MenuItem onClick={handleOrdersButton}>Orders</MenuItem>
           {session?
             <MenuItem onClick={() => signOut()}>Sign Out</MenuItem>
             :<MenuItem onClick={() => signIn()}>Sign In</MenuItem>

@@ -2,7 +2,7 @@ import { connectToDatabase } from "./mongodb";
 import parseMongoObj from "../utils/parseMongoObj";
 
 import { ProductType } from "@/lib/common/Types";
-import { TABLE_PRODUCTS } from "../dbTables";
+import { TABLE_PRODUCTS } from "../common/dbTables";
 import { MONGO_FIND_OptionalParams } from "@/lib/common/Types";
 
 

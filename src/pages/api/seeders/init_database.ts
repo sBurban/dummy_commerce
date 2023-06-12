@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 // import { initUsers } from '@/lib/productApi'
 import { initTable } from '@/lib/mongoDB/seederQueries';
-import { DbTables } from '@/lib/dbTables';
+import { DbTables } from '@/lib/common/dbTables';
 
 type Data = {
   message?: string,

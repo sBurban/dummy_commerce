@@ -9,7 +9,7 @@ import { TABLE_PRODUCTS,
   TABLE_ORDERS,
   TABLE_ORDER_ITEMS,
   TABLE_PAYMENTS,
-} from '@/lib/dbTables';
+} from '@/lib/common/dbTables';
 
 const DbTables = [TABLE_PRODUCTS,
   TABLE_USERS,
