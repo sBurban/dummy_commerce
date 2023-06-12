@@ -7,7 +7,7 @@ import { isLoginRequiredServer } from "@/lib/auth";
 
 import { fetchUserByEmail } from "@/lib/mongoDB/userQueries";
 import { dbFindFromCollection } from "@/lib/mongoDB/mongoQueries";
-import { TABLE_USER_ADDRESS } from "@/lib/dbTables";
+import { TABLE_USER_ADDRESS } from "@/lib/common/dbTables";
 import { AddressType, UserPageProps } from "@/lib/common/Types";
 
 import { Box, Typography, Grid, Link, Toolbar, Chip } from "@mui/material";

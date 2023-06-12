@@ -2,7 +2,7 @@ import { connectToDatabase } from "./mongodb";
 import parseMongoObj from "../utils/parseMongoObj";
 
 import { OrderType, OrderItemType } from "@/lib/common/Types";
-import { TABLE_ORDERS, TABLE_ORDER_ITEMS, TABLE_PRODUCTS } from "../dbTables";
+import { TABLE_ORDERS, TABLE_ORDER_ITEMS, TABLE_PRODUCTS } from "../common/dbTables";
 import { MONGO_FIND_OptionalParams } from "@/lib/common/Types";
 
 export async function fetchOrdersFromDB(params?:MONGO_FIND_OptionalParams){

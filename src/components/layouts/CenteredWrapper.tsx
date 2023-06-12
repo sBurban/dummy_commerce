@@ -9,7 +9,7 @@ enum WidthSize {
 
 interface WrapperProps{
     children?: any,
-    mySize?: keyof typeof WidthSize
+    mySize?: keyof typeof WidthSize,
 }
 
 export default function CenteredWrapper({ mySize, children }:WrapperProps){
@@ -22,7 +22,7 @@ export default function CenteredWrapper({ mySize, children }:WrapperProps){
             direction="column"
             alignItems="center"
             sx={{
-                margin: '1rem auto',
+                margin: '1rem auto 0 auto',
                 width: `${wrapperWidth}`,
                 minheight: "100vh",
                 // backgroundColor: "#fff"

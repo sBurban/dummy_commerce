@@ -17,8 +17,12 @@ export default async function handler(
         const params = req.query;
         console.log("🚀 ~ file: pages/api/products.ts:18 ~ params:", params)
         // return res.status(200).json({message: "Early return testing", products:[] });
+        let queryFilter;
+        if(params.id) queryFilter = { query:{ id: parseInt(params.id as string) } };
+        else if(params.category) queryFilter = { query:{ category:params.category } };
+        else queryFilter = {};
+        // const queryFilter = params.category? { query:{ category:params.category } } : {};
 
-        const queryFilter = params.category? { query:{ category:params.category } } : {};
         const result = await fetchProductsFromDB(queryFilter);
         // console.log("🚀 ~ file: index.js:20 ~ handler ~ result:", result.data.length)
 
