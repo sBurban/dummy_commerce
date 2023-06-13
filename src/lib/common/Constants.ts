@@ -16,7 +16,7 @@ export const ROUTE_CHECKOUT_POST_PURCHASE = "/checkout/post_purchase/"
 
 export const ROUTE_HOME = "/";
 export const ROUTE_PRODUCTS = "/products/";
-export const ROUTE_ABOUT_US = "about_us";
+export const ROUTE_ABOUT_US = "/about_us/";
 
 
 // API

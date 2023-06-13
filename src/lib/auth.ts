@@ -17,7 +17,7 @@ type CustomSession = Session & {id:number};
 export const authConfig:NextAuthOptions = {
     providers:[
         CredentialsProvider({
-            name: "Sign in",
+            name: "Duhmmerce",
             credentials:{
                 email:{
                     label: "Email",

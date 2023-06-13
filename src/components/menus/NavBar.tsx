@@ -1,10 +1,14 @@
 import {useState} from 'react'
 import { Box,Typography,Toolbar,Link,IconButton,Badge,Paper,InputBase } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
-import { ROUTE_ACCOUNT, ROUTE_ACCOUNT_ACCESS, ROUTE_ACCOUNT_ORDERS, ROUTE_ACCOUNT_ADDRESSES } from '@/lib/common/Constants';
+import { ROUTE_ACCOUNT, ROUTE_ACCOUNT_ACCESS,
+  ROUTE_ACCOUNT_ORDERS, ROUTE_ACCOUNT_ADDRESSES ,
+  ROUTE_ABOUT_US
+} from '@/lib/common/Constants';
 
 import {
     // Menu as MenuIcon, Mail as MailIcon, Notifications as NotifyIcon,
+    Link as Muilink,
     AccountCircle, Search as SearchIcon, MoreVert as MoreIcon,
     ShoppingCart as ShoppingCartIcon
 } from '@mui/icons-material';
@@ -63,10 +67,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Img = styled('img')({
-    // margin: 'auto',
-    // display: 'block',
-    // maxWidth: '100%',
-    // maxHeight: '100%',
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
     // borderRadius: "50%",
     // backgroundColor: "#fff",
 });
@@ -144,14 +148,12 @@ export const NavBar = ({onSearchSubmit, ...props}:any) => {
           open={isMenuOpen}
           onClose={handleMenuClose}
         >
+          {!session && <MenuItem onClick={() => signIn()}>Sign In</MenuItem>}
           <MenuItem onClick={handleProfileButton}>Profile</MenuItem>
           <MenuItem onClick={handleAccountSettingsButton}>Settings</MenuItem>
           <MenuItem onClick={handleAddressesButton}>Addresses</MenuItem>
           <MenuItem onClick={handleOrdersButton}>Orders</MenuItem>
-          {session?
-            <MenuItem onClick={() => signOut()}>Sign Out</MenuItem>
-            :<MenuItem onClick={() => signIn()}>Sign In</MenuItem>
-          }
+          {session && <MenuItem onClick={() => signOut()}>Sign Out</MenuItem>}
 
         </Menu>
     );
@@ -175,6 +177,20 @@ export const NavBar = ({onSearchSubmit, ...props}:any) => {
           open={isMobileMenuOpen}
           onClose={handleMobileMenuClose}
         >
+
+          {!session &&
+            <MenuItem onClick={() => signIn()}>
+              <IconButton>
+                  <Typography
+                              variant="h6"
+                              noWrap
+                              component="div"
+                              textAlign={"center"}
+                              sx={{ display: { xs: 'none', sm: 'block' } }}
+                  >Sign In</Typography>
+              </IconButton>
+            </MenuItem>
+          }
 
           <MenuItem>
             <IconButton
@@ -201,6 +217,38 @@ export const NavBar = ({onSearchSubmit, ...props}:any) => {
             </IconButton>
             <p>Profile</p>
           </MenuItem>
+
+
+          <MenuItem>
+              <IconButton>
+                <Link href={ROUTE_ABOUT_US} color="inherit" underline="none" >
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        textAlign={"center"}
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                    >
+                        About us
+                    </Typography>
+              </Link>
+              </IconButton>
+          </MenuItem>
+
+
+          {session &&
+            <MenuItem onClick={() => signOut()}>
+              <IconButton>
+                  <Typography
+                              variant="h6"
+                              noWrap
+                              component="div"
+                              textAlign={"center"}
+                              sx={{ display: { xs: 'none', sm: 'block' } }}
+                  >Sign Out</Typography>
+              </IconButton>
+            </MenuItem>
+          }
 
 
         </Menu>
@@ -263,6 +311,22 @@ export const NavBar = ({onSearchSubmit, ...props}:any) => {
 
                 {/* Box displayed on bigger screen sizes. Controls normal menu*/}
                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+
+                    <IconButton>
+                        <Link href={ROUTE_ABOUT_US}>
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                component="div"
+                                sx={{ display: { xs: 'none', sm: 'block', color: '#fff' } }}
+                            >
+                                About us
+                            </Typography>
+                        </Link>
+                    </IconButton>
+
+                    <Toolbar />
+
                     <IconButton
                         size="large"
                         aria-label="show 4 items in cart"
