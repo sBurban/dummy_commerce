@@ -11,7 +11,7 @@ import { Box, Grid, Typography, Button, TextField } from "@mui/material";
 import { GridHeader } from "@/components/GridHeader";
 import { FormReadOnly } from "@/components/forms/FormReadOnly";
 
-const Account = ({user, ...props}:UserPageProps) =>{
+export default function Account({user, ...props}:UserPageProps){
 
     const {email, password, image} = user;
 
@@ -80,4 +80,3 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
     };
 }
 
-export default Account;

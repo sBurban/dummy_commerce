@@ -18,7 +18,7 @@ type AddressDetailsProps = {
   props?:any
 }
 
-export const addressDetails = ({user_address, ...props}:AddressDetailsProps) => {
+export default function addressDetails({user_address, ...props}:AddressDetailsProps) {
 
   if(!user_address){
     return <div>Address not found</div>
@@ -58,7 +58,6 @@ export const addressDetails = ({user_address, ...props}:AddressDetailsProps) => 
   </>)
 }
 
-export default addressDetails;
 
 
 export async function getServerSideProps(context:GetServerSidePropsContext) {

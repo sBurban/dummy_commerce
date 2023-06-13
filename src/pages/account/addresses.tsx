@@ -22,7 +22,7 @@ type AddressesPageProps = {
     userAddressList: AddressType[] | [],
 } & UserPageProps
 
-const Addresses = ({userAddressList, user, ...props }: AddressesPageProps) =>{
+export default function Addresses({userAddressList, user, ...props }: AddressesPageProps){
 
 
     const addressList= userAddressList.map( (user_address,idx) => {
@@ -144,5 +144,3 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
         },
     };
 }
-
-export default Addresses;
