@@ -15,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/router';
+import { ROUTE_HOME } from '@/lib/common/Constants';
 import Image from 'next/image';
 import { styled, alpha } from '@mui/material/styles';
 
@@ -215,7 +216,7 @@ export const NavBar = ({onSearchSubmit, ...props}:any) => {
 
                 {/* Left side of the NavBar */}
 
-                <Link href={"/"}>
+                <Link href={ROUTE_HOME}>
                     <Typography
                         variant="h6"
                         noWrap

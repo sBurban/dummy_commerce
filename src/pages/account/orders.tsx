@@ -24,7 +24,7 @@ type OrdersPageProps = {
     items: OrderItemType[] | [],
 }
 
-const Orders = ({orders, items}:OrdersPageProps) =>{
+export default function Orders({orders, items}:OrdersPageProps){
 
     console.log("🚀 ~ file: orders.tsx:17 ~ Orders ~ orders:", orders)
     // console.log("🚀 ~ file: orders.tsx:17 ~ Orders ~ items:", items)
@@ -147,7 +147,4 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
       },
     };
 }
-
-export default Orders;
-
 
