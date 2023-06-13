@@ -3,7 +3,7 @@ const users = [
         "id": 1,
         "email":"test@testing.com",
         "name":"fulanito perez",
-        "image":"https://goat.com.co/assets/images/icon.svg",
+        "image":"https://ih1.redbubble.net/image.3510672545.8841/st,small,507x507-pad,600x600,f8f8f8.jpg",
         "password":"password",
         "username":"tester",
         "first_name": "fulanito",

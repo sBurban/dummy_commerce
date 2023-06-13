@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react"
 // import { useRouter } from 'next/router';
 import { GetServerSidePropsContext, GetStaticPropsContext } from 'next';
-import { ROUTE_LOGIN } from "./common/Constants";
+import { ROUTE_LOGIN, ROUTE_HOME } from "./common/Constants";
 
 import { Session } from 'next-auth';
 import JWT from 'next-auth'
@@ -17,7 +17,7 @@ type CustomSession = Session & {id:number};
 export const authConfig:NextAuthOptions = {
     providers:[
         CredentialsProvider({
-            name: "Sign in",
+            name: "Duhmmerce",
             credentials:{
                 email:{
                     label: "Email",
@@ -93,13 +93,13 @@ export async function isLoginRequiredServer(context:GetServerSidePropsContext){
 // export async function loginIsRequiredServer(context:GetServerSidePropsContext){
 //     const session = getServerSession(context.req, context.res, authConfig);
 //     if(!session) return signIn();
-//     // if(!session) return redirect("/");
+//     // if(!session) return redirect(ROUTE_HOME);
 // }
 
 // export async function loginIsRequiredClient(){
 //     if(typeof window !== "undefined"){
 //         const session = useSession();
 //         const router = useRouter();
-//         if(!session) router.push("/");
+//         if(!session) router.push(ROUTE_HOME);
 //     }
 // }

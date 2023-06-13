@@ -19,7 +19,7 @@ export function setSessionData(productId:number) {
     sessionStorage.setItem(SINGLE_CHECKOUT_NAME, JSON.stringify(data));
 }
 
-export function clear(){
+export function clearSession(){
     sessionStorage.removeItem(SINGLE_CHECKOUT_NAME);
     // sessionStorage.clear();
 }

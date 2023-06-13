@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { ROUTE_CHECKOUT_API, ROUTE_CHECKOUT_POST_PURCHASE } from '@/lib/common/Constants'
+import { clearSession } from '@/lib/utils/singleCheckout'
 
 import { ProductType, UserType, AddressType, } from '@/lib/common/Types'
 import { Box, Grid, Typography, ButtonBase, Button  } from '@mui/material'
@@ -60,6 +61,7 @@ export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFo
             const response = await axios.post(ROUTE_CHECKOUT_API, requestBody);
             console.log("🚀 ~ file: CheckoutForm.tsx:60 ~ handleConfirmation ~ response:", response)
 
+            clearSession();
             router.push(ROUTE_CHECKOUT_POST_PURCHASE);
         } catch (error) {
             console.log("🚀 ~ file: CheckoutForm.tsx:33 ~ handleConfirmation ~ error:", error)
@@ -90,13 +92,13 @@ export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFo
         >
             <Grid container>
 
-                <Grid item container md={2} direction="column" >
+                <Grid item container xs={3} direction="column" >
                     <ButtonBase sx={{ width:128, height: 128 }}>
                         <StyledImg alt="product image" src={product.image} />
                     </ButtonBase>
                 </Grid>
 
-                <Grid item container md={8} direction="column" justifyContent={"center"} >
+                <Grid item container sm={4} md={7} direction="column" justifyContent={"center"} >
                     <Grid item xs>
                         <Typography gutterBottom variant="subtitle1" component="div"
                             // sx={{ '&:hover':{fontWeight: 600} }}
@@ -116,7 +118,7 @@ export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFo
                     </Grid>
                 </Grid>
 
-                <Grid item container md={2} direction="column" justifyContent={"center"} >
+                <Grid item container sm={2} direction="column" justifyContent={"center"} >
                     <Typography variant="subtitle1" component="div">
                         Total:
                     </Typography>
@@ -132,7 +134,7 @@ export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFo
     const taxCost = itemSUM * taxRate;
     orderTotal =  beforeTaxes + taxCost
 
-    const agreements = <>
+    const agreements = <Grid item container>
         <Typography variant="body2" component="div">
             By confirming the order, you accept our
             <MuiLink className="tos_link" href="#" underline="hover" > {"Privacy Agreement"} </MuiLink>
@@ -146,7 +148,7 @@ export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFo
             <MuiLink className="tos_link" href="#" underline="hover" > {"Terms and Conditions"} </MuiLink>
             here at Duhmmerce
         </Typography>
-    </>;
+    </Grid>;
 
 
     const leftColumn = <Grid container className='col_left' md={8}
@@ -226,7 +228,7 @@ export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFo
             <Grid className="items_header" container item
                 sx={{
                     margin: '1rem auto',
-                    width: `90%`,
+                    // width: `90%`,
                 }}
             >
                 <GridHeader
@@ -255,21 +257,23 @@ export const CheckoutForm = ({itemlist, user, address, paymentMethod}:CheckoutFo
             <Grid className="checkout_button_wrapper" container item
                 sx={{
                     margin: '1rem auto',
-                    width: `90%`,
+                    // width: `90%`,
                 }}
             >
                 <ListCard mystyle={{ borderRadius:"0.5rem" }} >
                     <Grid item container >
-                        <Grid item container xs={3} alignItems={"center"} >
+                        <Grid item container xs={4} alignItems={"center"} >
                             <div>
                                 <Button variant="contained" onClick={() => handleConfirmation()}
                                     sx={{  }}
                                 >Confirm Payment</Button>
                             </div>
                         </Grid>
-                        <Grid item container xs={7} direction="column" >
+                        <Grid item container md={7} direction="column"
+                            sx={{ marginTop:{ xs:"1rem", md: "0" } }}
+                        >
                             <Typography variant="h5" component="div"
-                                sx={{ color:"red" }}
+                                sx={{ color:"red",  }}
                             >
                                 Order Total: ${orderTotal}
                             </Typography>

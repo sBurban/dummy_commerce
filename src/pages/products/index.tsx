@@ -71,7 +71,7 @@ export default function Products({products=[], categories=[]}:ProductsPageProps)
     const productsList:React.JSX.Element[] = [];
     filteredProducts.forEach( (product,i) => {
         const listCard = <ListCard key={""+product.id}
-            sx={{
+            mystyle={{
                 marginBottom: '0.5rem'
              }}
         >

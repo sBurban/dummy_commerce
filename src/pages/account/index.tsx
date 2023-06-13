@@ -25,7 +25,7 @@ const initAlert = {
 }
 const alertTimer = 1000;
 
-const Profile = ({user, ...props}:UserPageProps) =>{
+export default function Profile({user, ...props}:UserPageProps){
 
     const [alert, setAlert] = useState<AlertState>(initAlert);
     const [isEdit, setIsEdit] = useState(false);
@@ -123,4 +123,3 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
     };
 }
 
-export default Profile;

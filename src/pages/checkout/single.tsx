@@ -44,13 +44,10 @@ export default function SingleCheckout({session, user, address}:any) {
 
     useEffect(() => {
       const data = getSessionData();
-      // const data = sessionStorage.getItem('one_checkout')
-      if(data){
+      if(!data) router.push('/');
+      else if(data){
         const body = JSON.parse(data as string);
-        // setlocaldata( )
         getProducts(body.product_id);
-      }else{
-        // setlocaldata(null);
       }
     }, [])
 
