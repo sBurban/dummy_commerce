@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import AboutUs from '../src/pages/about_us';
-import storytext from '../src/data/aboutUsStory';
-import ownerImage from '../public/clueless.png'
+import AboutUs from '../../pages/about_us';
+import storytext from '../../data/aboutUsStory';
 
 describe('AboutUs', () => {
 

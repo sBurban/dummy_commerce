@@ -1,6 +1,6 @@
-import capitalizeFirst from '../src/lib/utils/capitalizeFirst';
-import formatDate from '../src/lib/utils/formatDate';
-import parseMongoObj from '../src/lib/utils/parseMongoObj';
+import capitalizeFirst from '../../lib/utils/capitalizeFirst';
+import formatDate from '../../lib/utils/formatDate';
+import parseMongoObj from '../../lib/utils/parseMongoObj';
 import { ObjectId } from 'mongodb';
 
 describe('Utility functions', () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import {render} from '@testing-library/react';
-import AccountWrapper from '../src/components/layouts/AccountWrapper';
+import AccountWrapper from '../../components/layouts/AccountWrapper';
 
 describe('Testing AccountWrapper',() => {
     test('renders without errors', () => {

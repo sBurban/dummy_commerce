@@ -14,7 +14,7 @@ const config = {
   moduleNameMapper:{
     // '^@/components/(.*)$': '<rootDir>/components/$1'
     '^@/src/(.*)$': './src/$1', //<= Compare with "paths" in tsconfig.json
-    '^uuid$': require.resolve('uuid'),
+    // '^uuid$': require.resolve('uuid'),
   },
   testEnvironment: 'jest-environment-jsdom',
 }
