@@ -53,9 +53,9 @@ describe('Session Storage functions', () => {
         const dataObj = {product_id: 1};
         const setItemSpy = jest.spyOn(window.sessionStorage, 'setItem');
         setSessionData(1);
-        const savedValue = window.sessionStorage.getItem(SINGLE_CHECKOUT_NAME);
-        expect(savedValue).toEqual(JSON.stringify(dataObj));
-        expect(setItemSpy).toBeCalledWith(SINGLE_CHECKOUT_NAME, dataObj);
+        const savedValue = JSON.parse(window.sessionStorage.getItem(SINGLE_CHECKOUT_NAME));
+        expect(savedValue).toEqual(dataObj);
+        expect(setItemSpy).toBeCalledWith(SINGLE_CHECKOUT_NAME, JSON.stringify(dataObj));
 
     })
     // test('CLEAR Session Data', () => {

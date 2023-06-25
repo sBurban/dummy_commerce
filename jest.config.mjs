@@ -13,7 +13,8 @@ const config = {
   setupFilesAfterEnv: ['./jest.setup.js'],
   moduleNameMapper:{
     // '^@/components/(.*)$': '<rootDir>/components/$1'
-    '^@/src/(.*)$': './src/$1' //<= Compare with "paths" in tsconfig.json
+    '^@/src/(.*)$': './src/$1', //<= Compare with "paths" in tsconfig.json
+    '^uuid$': require.resolve('uuid'),
   },
   testEnvironment: 'jest-environment-jsdom',
 }
