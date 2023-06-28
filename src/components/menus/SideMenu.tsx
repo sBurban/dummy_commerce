@@ -14,9 +14,36 @@ const removeLastChar = (path:string) => {
   return path.slice(0,-1);
 };
 
+export const MenuRoutes = [
+  {
+    id: 1,
+    label:'Profile',
+    path: removeLastChar(ROUTE_ACCOUNT),
+    icon: <PersonIcon />
+  },
+  {
+    id: 2,
+    label: 'Settings',
+    path: removeLastChar(ROUTE_ACCOUNT_ACCESS),
+    icon: <SettingsIcon />
+  },
+  {
+    id: 3,
+    label: 'Addresses',
+    path: removeLastChar(ROUTE_ACCOUNT_ADDRESSES),
+    icon: <AddressIcon />
+  },
+  {
+    id: 4,
+    label: 'Orders',
+    path: removeLastChar(ROUTE_ACCOUNT_ORDERS),
+    icon: <ShoppingBagIcon />
+  },
+];
+
 export const SideMenu = () => {
   const router = useRouter();
-  console.log("🚀 ~ file: SideMenu.tsx:15 ~ SideMenu ~ router:", router.pathname)
+  // console.log("🚀 ~ file: SideMenu.tsx:15 ~ SideMenu ~ router:", router.pathname)
 
   const activeRoute = (routeName:string, currentRoute:string) => {
     if(routeName === currentRoute) return true;
@@ -26,37 +53,12 @@ export const SideMenu = () => {
     if(extraParams.length < 3) return false; //Only 'account' matches, and should've being catched earlier
 
     const mainPath = extraParams[2];
-    console.log("🚀 ~ file: SideMenu.tsx:29 ~ activeRoute ~ mainPath:", mainPath)
+    // console.log("🚀 ~ file: SideMenu.tsx:29 ~ activeRoute ~ mainPath:", mainPath)
     if(routeName.indexOf(mainPath) > -1) return true; //Path option includes the 2nd param of Current route
     return false;
   }
 
-  const routes = [
-      {
-        id: 1,
-        label:'Profile',
-        path: removeLastChar(ROUTE_ACCOUNT),
-        icon: <PersonIcon />
-      },
-      {
-        id: 2,
-        label: 'Settings',
-        path: removeLastChar(ROUTE_ACCOUNT_ACCESS),
-        icon: <SettingsIcon />
-      },
-      {
-        id: 3,
-        label: 'Addresses',
-        path: removeLastChar(ROUTE_ACCOUNT_ADDRESSES),
-        icon: <AddressIcon />
-      },
-      {
-        id: 4,
-        label: 'Orders',
-        path: removeLastChar(ROUTE_ACCOUNT_ORDERS),
-        icon: <ShoppingBagIcon />
-      },
-  ];
+
 
 
 
@@ -65,7 +67,7 @@ export const SideMenu = () => {
         <Toolbar />
         {/* <Divider /> */}
         <List>
-            {routes.map((route, index) => (
+            {MenuRoutes.map((route, index) => (
                 <Link href={route.path} key={route.id} sx={{ textDecoration: 'none' }}>
                     {/* <MenuItem selected={activeRoute(route.path, router.pathname)}> */}
                         <ListItem  disablePadding
@@ -107,3 +109,5 @@ export const SideMenu = () => {
     </Box>
   </>)
 }
+
+export default SideMenu;
