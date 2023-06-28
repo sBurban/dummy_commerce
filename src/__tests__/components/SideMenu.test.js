@@ -72,7 +72,6 @@ describe('Testing SideMenu', () => {
         const matches = [];
         for (const link of linkElems){
             const iconRendered = link.querySelector('svg');
-            console.log(iconRendered);
             if(iconRendered) matches.push(iconRendered);
         }
         //Assert
