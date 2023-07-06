@@ -19,6 +19,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/**.tsx", "src/lib/auth.js", "src/components/cards/Testing.js", "src/__tests__/components/AccountWrapper.test.tsx", "src/__tests__/components/AccountWrapper.test.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/**.tsx", "src/lib/auth.js", "src/components/cards/Testing.js", "src/__tests__/components/AccountWrapper.test.tsx", "src/__tests__/components/AccountWrapper.test.tsx", "src/__tests__/utils/SessionStorage.test.js"],
   "exclude": ["node_modules"]
 }
