@@ -2,18 +2,26 @@ import React from "react";
 import {render} from '@testing-library/react';
 import AccountWrapper from '../../components/layouts/AccountWrapper';
 
-import { useRouter } from "next/router";
-jest.mock('next/router', () => ({
-    useRouter: jest.fn(() => console.log("Mock 'useRouter' ran.")),
-}));
+// import { useRouter } from "next/router";
+// jest.mock('next/router', () => ({
+//     useRouter: jest.fn(() => console.log("Mock 'useRouter' ran.")),
+// }));
+// const mockRouter = {
+//     pathname: '/mocked-path',
+//     push: jest.fn()
+// }
+// useRouter.mockReturnValue(mockRouter);
+
+const useRouter = jest.spyOn(require('next/router'), 'useRouter')
 
 describe('Testing AccountWrapper',() => {
     beforeAll(() => {
-        const mockRouter = {
-            pathname: '/mocked-path',
-            push: jest.fn()
-        }
-        useRouter.mockReturnValue(mockRouter);
+        useRouter.mockImplementation(() => ({
+            route: "/yourRoute",
+            pathname: "/yourRoute",
+            query: "",
+            asPath: "",
+        }));
     })
     test('renders without errors', () => {
         const { container } = render(<AccountWrapper />);

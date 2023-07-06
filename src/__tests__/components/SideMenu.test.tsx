@@ -1,7 +1,7 @@
 import React from "react";
 import {render, screen} from '@testing-library/react';
 import { SideMenu, MenuRoutes } from "../../components/menus/SideMenu";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { ROUTE_ACCOUNT,ROUTE_ACCOUNT_ACCESS,ROUTE_ACCOUNT_ADDRESSES,ROUTE_ACCOUNT_ORDERS } from '@/lib/common/Constants';
 
 const routerPathOptions = [
@@ -11,21 +11,26 @@ const routerPathOptions = [
     ROUTE_ACCOUNT_ORDERS,
 ]
 
-jest.mock('next/router', () => ({
-    useRouter: jest.fn(() => console.log("Mock 'useRouter' ran.")),
-}));
+// jest.mock('next/router', () => ({
+//     useRouter: jest.fn(() => console.log("Mock 'useRouter' ran.")),
+// }));
+// const mockRouter = {
+//     pathname: '/mocked-path',
+//     push: jest.fn()
+// }
+// useRouter.mockReturnValue(mockRouter);
+
+const useRouter = jest.spyOn(require('next/router'), 'useRouter')
+
 
 describe('Testing SideMenu', () => {
     beforeAll(() => {
-        // return useRouter.mockImplementation(() => ({
-        //     pathname: '/mocked-path',
-        //     push: jest.fn()
-        // }))
-        const mockRouter = {
-            pathname: '/mocked-path',
-            push: jest.fn()
-        }
-        useRouter.mockReturnValue(mockRouter);
+        useRouter.mockImplementation(() => ({
+            route: "/yourRoute",
+            pathname: "/yourRoute",
+            query: "",
+            asPath: "",
+        }));
     })
 
     test('renders without errors',()=>{
