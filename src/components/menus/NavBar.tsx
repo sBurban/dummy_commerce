@@ -75,7 +75,7 @@ const Img = styled('img')({
     // backgroundColor: "#fff",
 });
 
-export const NavBar = ({onSearchSubmit, ...props}:any) => {
+const NavBar = ({onSearchSubmit, ...props}:any) => {
   const [searchText, setSearchText] = useState("");
   const handleText = (e:React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
@@ -371,3 +371,5 @@ export const NavBar = ({onSearchSubmit, ...props}:any) => {
         </Box>
     );
 }
+
+export default NavBar;

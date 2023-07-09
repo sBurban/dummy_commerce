@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavBar } from '../menus/NavBar';
+import NavBar from '../menus/NavBar';
 import Router from 'next/router';
 import { ROUTE_PRODUCTS } from '@/lib/common/Constants';
 
