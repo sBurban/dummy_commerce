@@ -16,23 +16,6 @@ export type AddressDetailsProps = {
   props?:any
 }
 
-export default function DetailsPage({user_address, ...props}:AddressDetailsProps) {
-
-  return (<>
-    <AccountWrapper>
-      <CenteredWrapper>
-        <AddressDetails
-          {...{
-            user_address,
-          }}
-        />
-      </CenteredWrapper>
-    </AccountWrapper>
-  </>)
-}
-
-
-
 export async function getServerSideProps(context:GetServerSidePropsContext) {
   const check = await isLoginRequiredServer(context);
   if (!check.session) return check;
@@ -72,3 +55,21 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
       },
   };
 }
+
+export default function DetailsPage({user_address, ...props}:AddressDetailsProps) {
+
+  return (<>
+    <AccountWrapper>
+      <CenteredWrapper>
+        <AddressDetails
+          {...{
+            user_address,
+          }}
+        />
+      </CenteredWrapper>
+    </AccountWrapper>
+  </>)
+}
+
+
+

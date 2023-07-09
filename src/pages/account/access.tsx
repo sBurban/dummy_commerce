@@ -11,21 +11,6 @@ import { fetchUserByEmail } from "@/lib/mongoDB/userQueries";
 import { Settings } from "@/components/pageComponentsAccount/Settings";
 
 
-export default function SettingsPage({user, ...props}:UserPageProps){
-
-    return <>
-        <AccountWrapper>
-            <CenteredWrapper>
-                <Settings
-                    {...{
-                        user
-                    }}
-                />
-            </CenteredWrapper>
-        </AccountWrapper>
-    </>
-}
-
 export async function getServerSideProps(context:GetServerSidePropsContext) {
     const check = await isLoginRequiredServer(context);
     if (!check.session) return check;
@@ -54,4 +39,21 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
         },
     };
 }
+
+
+export default function SettingsPage({user, ...props}:UserPageProps){
+
+    return <>
+        <AccountWrapper>
+            <CenteredWrapper>
+                <Settings
+                    {...{
+                        user
+                    }}
+                />
+            </CenteredWrapper>
+        </AccountWrapper>
+    </>
+}
+
 

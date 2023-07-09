@@ -15,22 +15,6 @@ export type OrdersPageProps = {
     items: OrderItemType[] | [],
 }
 
-export default function OrdersPage({orders, items}:OrdersPageProps){
-
-    return <>
-    <AccountWrapper>
-        <CenteredWrapper mySize="long" >
-            <Orders
-                {...{
-                    orders,
-                    items
-                }}
-            />
-        </CenteredWrapper>
-    </AccountWrapper>
-    </>
-}
-
 export async function getServerSideProps(context:GetServerSidePropsContext) {
     const check = await isLoginRequiredServer(context);
     if (!check.session) return check;
@@ -73,4 +57,22 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
       },
     };
 }
+
+
+export default function OrdersPage({orders, items}:OrdersPageProps){
+
+    return <>
+    <AccountWrapper>
+        <CenteredWrapper mySize="long" >
+            <Orders
+                {...{
+                    orders,
+                    items
+                }}
+            />
+        </CenteredWrapper>
+    </AccountWrapper>
+    </>
+}
+
 

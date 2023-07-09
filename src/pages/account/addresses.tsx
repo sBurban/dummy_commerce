@@ -16,22 +16,6 @@ export type AddressesPageProps = {
     userAddressList: AddressType[] | [],
 } & UserPageProps
 
-export default function AddressesPage({userAddressList, user, ...props }: AddressesPageProps){
-
-    return <>
-        <AccountWrapper>
-            <CenteredWrapper mySize="long">
-                <Addresses
-                    {...{
-                        userAddressList,
-                        user,
-                    }}
-                />
-            </CenteredWrapper>
-        </AccountWrapper>
-    </>
-}
-
 export async function getServerSideProps(context:GetServerSidePropsContext) {
     const check = await isLoginRequiredServer(context);
     if (!check.session) return check;
@@ -66,3 +50,21 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
         },
     };
 }
+
+
+export default function AddressesPage({userAddressList, user, ...props }: AddressesPageProps){
+
+    return <>
+        <AccountWrapper>
+            <CenteredWrapper mySize="long">
+                <Addresses
+                    {...{
+                        userAddressList,
+                        user,
+                    }}
+                />
+            </CenteredWrapper>
+        </AccountWrapper>
+    </>
+}
+
