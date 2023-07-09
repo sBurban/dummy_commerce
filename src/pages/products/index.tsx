@@ -49,7 +49,7 @@ export async function getStaticProps(){
     }
 }
 
-export default function Products({products=[], categories=[]}:ProductsPageProps){
+export default function ProductsPage({products=[], categories=[]}:ProductsPageProps){
 
     return (
         <ProductsList
