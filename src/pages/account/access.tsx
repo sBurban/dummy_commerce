@@ -5,47 +5,22 @@ import CenteredWrapper from "@/components/layouts/CenteredWrapper";
 import { GetServerSidePropsContext } from "next";
 import { isLoginRequiredServer } from "@/lib/auth";
 
-import { fetchUserByEmail } from "@/lib/mongoDB/userQueries";
 import { UserPageProps } from "@/lib/common/Types";
-import { Box, Grid, Typography, Button, TextField } from "@mui/material";
-import { GridHeader } from "@/components/commons/GridHeader";
-import { FormReadOnly } from "@/components/forms/FormReadOnly";
 
-export default function Account({user, ...props}:UserPageProps){
+import { fetchUserByEmail } from "@/lib/mongoDB/userQueries";
+import { Settings } from "@/components/pageComponentsAccount/Settings";
 
-    const {email, password, image} = user;
 
-    const data = [
-        {title: "Email", value: email},
-        {title: "Password", value: password.split("").map(pwd => '*')},
-        {title: "Profile Image", value: image},
-    ];
-    const formReadOnlyElems = <FormReadOnly data={data} />
+export default function SettingsPage({user, ...props}:UserPageProps){
 
     return <>
         <AccountWrapper>
             <CenteredWrapper>
-                {/* <h1>Account Page</h1> */}
-
-                <Box>
-                    <GridHeader >
-                        <Typography component="span" variant="h5" ml={2} >
-                            Account Settings
-                        </Typography>
-                        <Button variant="outlined" sx={{ marginRight: '0.5rem' }}
-                            // onClick={() => setIsEdit(!isEdit)}
-                        >
-                            Edit
-                            {/* {!isEdit? "Edit" : "Cancel"} */}
-                        </Button>
-                    </GridHeader>
-
-                    {/* {isEdit? formElem : formReadOnlyElems} */}
-                    {formReadOnlyElems}
-
-                </Box>
-
-
+                <Settings
+                    {...{
+                        user
+                    }}
+                />
             </CenteredWrapper>
         </AccountWrapper>
     </>

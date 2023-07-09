@@ -6,7 +6,7 @@ import { fetchProductsFromDB } from '@/lib/mongoDB/productQueries';
 import { fetchProductById } from '@/lib/mongoDB/productQueries';
 import { ProductType } from '@/lib/common/Types';
 
-import { ProductDetails } from '@/components/pageComponentsProducts/DetailsBox';
+import { ProductDetails } from '@/components/pageComponentsProducts/ProductDetails';
 
 export type ProductDetailsProps = {
     product: ProductType|null
