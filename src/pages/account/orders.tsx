@@ -12,12 +12,12 @@ import { isLoginRequiredServer } from "@/lib/auth";
 import { getServerSession } from "next-auth/next"
 import { GetServerSidePropsContext, GetStaticPropsContext } from 'next';
 
-import { ListCard } from "@/components/cards/list/ListCard";
+import { ListCard } from "@/components/commons/ListCard";
 import { TwoColumns } from "@/components/cards/list/TwoColumns";
 import { ThreeColumns } from "@/components/cards/list/ThreeColumns";
 import { Grid, Typography,  } from "@mui/material";
 import formatDate from '@/lib/utils/formatDate';
-import { GridHeader } from "@/components/GridHeader";
+import { GridHeader } from "@/components/commons/GridHeader";
 
 type OrdersPageProps = {
     orders: OrderType[] | [],

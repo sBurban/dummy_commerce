@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 import CenteredWrapper from '@/components/layouts/CenteredWrapper'
 import { Grid, Typography, Link as Muilink } from '@mui/material'
-import { Carrousel } from '@/components/cards/Carrousel'
+import { Carrousel } from '@/components/commons/Carrousel'
 import capitalizeFirst from '@/lib/utils/capitalizeFirst'
 import { ROUTE_ABOUT_US } from '@/lib/common/Constants';
 

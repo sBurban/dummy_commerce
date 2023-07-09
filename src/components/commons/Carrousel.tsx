@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import useProducts from '@/hooks/useProducts'
 import { ProductType } from '@/lib/common/Types';
-import { StampCard } from './stamps/StampCard';
+import { StampCard } from './StampCard';
 
 import { Grid,Box,Typography } from '@mui/material';
 

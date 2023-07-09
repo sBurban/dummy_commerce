@@ -5,9 +5,9 @@ import { clearSession } from '@/lib/utils/singleCheckout'
 
 import { ProductType, UserType, AddressType, } from '@/lib/common/Types'
 import { Box, Grid, Typography, ButtonBase, Button  } from '@mui/material'
-import { ListCard } from '../cards/list/ListCard'
-import StyledImg from '../StyledImg'
-import { GridHeader } from '../GridHeader'
+import { ListCard } from '../commons/ListCard'
+import StyledImg from '../commons/StyledImg'
+import { GridHeader } from '../commons/GridHeader'
 import {Link as MuiLink} from '@mui/material'
 import { useRouter } from 'next/router';
 

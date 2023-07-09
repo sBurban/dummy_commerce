@@ -8,9 +8,9 @@ import { ProductType } from '@/lib/common/Types';
 
 import CenteredWrapper from '@/components/layouts/CenteredWrapper';
 import { Box, Grid, Typography, Button } from '@mui/material';
-import StyledImg from '@/components/StyledImg';
-import { RatingStars } from '@/components/RatingStars';
-import { Carrousel } from '@/components/cards/Carrousel';
+import StyledImg from '@/components/commons/StyledImg';
+import { RatingStars } from '@/components/commons/RatingStars';
+import { Carrousel } from '@/components/commons/Carrousel';
 import {TestCarr} from'@/components/cards/TestCarr'
 
 

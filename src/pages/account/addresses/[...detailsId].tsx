@@ -9,7 +9,7 @@ import { dbFindOneFromCollection } from '@/lib/mongoDB/mongoQueries';
 import { TABLE_USER_ADDRESS } from '@/lib/common/dbTables';
 import { fetchUserByEmail } from '@/lib/mongoDB/userQueries';
 
-import { GridHeader } from '@/components/GridHeader';
+import { GridHeader } from '@/components/commons/GridHeader';
 import { FormReadOnly } from '@/components/forms/FormReadOnly';
 import { Box, Typography, Button } from '@mui/material';
 

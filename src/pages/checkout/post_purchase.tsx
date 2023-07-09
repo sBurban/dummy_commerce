@@ -3,7 +3,7 @@ import CenteredWrapper from '@/components/layouts/CenteredWrapper'
 import { Alert, AlertTitle, Link as MuiLink, Box } from '@mui/material'
 import { StatusOptions } from '@/lib/common/Types'
 import { ROUTE_ACCOUNT_ORDERS } from '@/lib/common/Constants'
-import { Carrousel } from '@/components/cards/Carrousel'
+import { Carrousel } from '@/components/commons/Carrousel'
 
 export default function PostPurchase(){
   return (<>

@@ -8,7 +8,7 @@ import { isLoginRequiredServer } from "@/lib/auth";
 import { fetchUserByEmail } from "@/lib/mongoDB/userQueries";
 import { UserPageProps } from "@/lib/common/Types";
 import { Box, Grid, Typography, Button, TextField } from "@mui/material";
-import { GridHeader } from "@/components/GridHeader";
+import { GridHeader } from "@/components/commons/GridHeader";
 import { FormReadOnly } from "@/components/forms/FormReadOnly";
 
 export default function Account({user, ...props}:UserPageProps){

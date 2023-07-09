@@ -11,10 +11,10 @@ import { TABLE_USER_ADDRESS } from "@/lib/common/dbTables";
 import { AddressType, UserPageProps } from "@/lib/common/Types";
 
 import { Box, Typography, Grid, Link, Toolbar, Chip } from "@mui/material";
-import { GridHeader } from "@/components/GridHeader";
+import { GridHeader } from "@/components/commons/GridHeader";
 import { FormReadOnly } from "@/components/forms/FormReadOnly";
 // import Link from "next/link";
-import { ListCard } from "@/components/cards/list/ListCard";
+import { ListCard } from "@/components/commons/ListCard";
 import { Home as HomeIcon, } from "@mui/icons-material";
 
 

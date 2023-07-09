@@ -8,7 +8,7 @@ import { UserPageProps } from "@/lib/common/Types";
 
 import AccountWrapper from "@/components/layouts/AccountWrapper";
 import CenteredWrapper from "@/components/layouts/CenteredWrapper";
-import { GridHeader } from "@/components/GridHeader";
+import { GridHeader } from "@/components/commons/GridHeader";
 import { Box, Typography, Button, Alert, AlertTitle } from "@mui/material";
 
 import { FormReadOnly } from '@/components/forms/FormReadOnly';

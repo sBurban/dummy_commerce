@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { OrderItemProps } from '@/lib/common/Types';
 
 import { Grid,ButtonBase, Typography, Button } from '@mui/material'
-import StyledImg from '@/components/StyledImg';
+import StyledImg from '@/components/commons/StyledImg';
 import capitalizeFirst from '@/lib/utils/capitalizeFirst';
 import formatDate from '@/lib/utils/formatDate';
 import { ROUTE_PRODUCTS } from '@/lib/common/Constants';

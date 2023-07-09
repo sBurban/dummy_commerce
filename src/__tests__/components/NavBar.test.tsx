@@ -1,6 +1,6 @@
 import React from "react";
 import {render, screen, waitFor} from '@testing-library/react';
-import NavBar from "../../components/menus/NavBar";
+import NavBar from "../../components/layouts/menus/NavBar";
 
 //https://github.com/vercel/next.js/discussions/23034 - ghost on Dec 23, 2019
 // jest.mock("next/router", () => ({
