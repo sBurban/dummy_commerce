@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { ROUTE_LOGIN } from '@/lib/common/Constants';
 
 import { Box, Toolbar } from '@mui/material';
-import { SideMenu } from '../menus/SideMenu';
+import { SideMenu } from './menus/SideMenu';
 
 const AccountWrapper = ({children}:any) => {
     // const { data: session, status } = useSession();

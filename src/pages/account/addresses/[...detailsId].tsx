@@ -9,56 +9,12 @@ import { dbFindOneFromCollection } from '@/lib/mongoDB/mongoQueries';
 import { TABLE_USER_ADDRESS } from '@/lib/common/dbTables';
 import { fetchUserByEmail } from '@/lib/mongoDB/userQueries';
 
-import { GridHeader } from '@/components/GridHeader';
-import { FormReadOnly } from '@/components/forms/FormReadOnly';
-import { Box, Typography, Button } from '@mui/material';
+import { AddressDetails } from '@/components/pageComponentsAccount/AddressDetails';
 
-type AddressDetailsProps = {
+export type AddressDetailsProps = {
   user_address: AddressType,
   props?:any
 }
-
-export default function addressDetails({user_address, ...props}:AddressDetailsProps) {
-
-  if(!user_address){
-    return <div>Address not found</div>
-  }
-
-  const data = Object.keys(user_address).map( (objkey:string) => {
-      return {title: objkey, value: user_address[objkey as keyof AddressType] }
-  });
-  const formReadOnlyElems = <FormReadOnly data={data} />
-
-  const detailsElem = <Box>
-    <GridHeader >
-      <Typography component="span" variant="h5" >
-          Address Details
-      </Typography>
-      <Button variant="outlined" sx={{ marginRight: '0.5rem' }}
-          // onClick={() => setIsEdit(!isEdit)}
-      >
-        Edit
-          {/* {!isEdit? "Edit" : "Cancel"} */}
-      </Button>
-    </GridHeader>
-
-    {formReadOnlyElems}
-
-  </Box>
-
-  return (<>
-    <AccountWrapper>
-      <CenteredWrapper>
-
-        {/* <div>Address Details</div> */}
-        {detailsElem}
-
-      </CenteredWrapper>
-    </AccountWrapper>
-  </>)
-}
-
-
 
 export async function getServerSideProps(context:GetServerSidePropsContext) {
   const check = await isLoginRequiredServer(context);
@@ -99,3 +55,21 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
       },
   };
 }
+
+export default function DetailsPage({user_address, ...props}:AddressDetailsProps) {
+
+  return (<>
+    <AccountWrapper>
+      <CenteredWrapper>
+        <AddressDetails
+          {...{
+            user_address,
+          }}
+        />
+      </CenteredWrapper>
+    </AccountWrapper>
+  </>)
+}
+
+
+

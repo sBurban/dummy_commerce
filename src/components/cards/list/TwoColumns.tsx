@@ -5,8 +5,8 @@ import { ROUTE_PRODUCTS } from '@/lib/common/Constants';
 
 import { Grid,ButtonBase, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles';
-import { RatingStars } from '@/components/RatingStars';
-import StyledImg from '@/components/StyledImg';
+import { RatingStars } from '@/components/commons/RatingStars';
+import StyledImg from '@/components/commons/StyledImg';
 // const Img = styled('img')({
 //     margin: 'auto',
 //     display: 'block',

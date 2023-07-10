@@ -6,103 +6,13 @@ import { fetchUserByEmail } from "@/lib/mongoDB/userQueries";
 import { OrderType, OrderItemType } from "@/lib/common/Types";
 
 import { isLoginRequiredServer } from "@/lib/auth";
-// import { ROUTE_LOGIN } from "@/lib/common/Constants";
-// import { authConfig } from "@/lib/auth";
-// import { loginIsRequiredServer } from "@/lib/auth";
-import { getServerSession } from "next-auth/next"
 import { GetServerSidePropsContext, GetStaticPropsContext } from 'next';
 
-import { ListCard } from "@/components/cards/list/ListCard";
-import { TwoColumns } from "@/components/cards/list/TwoColumns";
-import { ThreeColumns } from "@/components/cards/list/ThreeColumns";
-import { Grid, Typography,  } from "@mui/material";
-import formatDate from '@/lib/utils/formatDate';
-import { GridHeader } from "@/components/GridHeader";
+import { Orders } from "@/components/pageComponentsAccount/Orders";
 
-type OrdersPageProps = {
+export type OrdersPageProps = {
     orders: OrderType[] | [],
     items: OrderItemType[] | [],
-}
-
-export default function Orders({orders, items}:OrdersPageProps){
-
-    console.log("🚀 ~ file: orders.tsx:17 ~ Orders ~ orders:", orders)
-    // console.log("🚀 ~ file: orders.tsx:17 ~ Orders ~ items:", items)
-    // return ;
-
-    const elemList = orders.length === 0? <h1>No Orders Found</h1>
-    : orders.map(order => {
-
-        const orderItems = items.map(item => {
-            if(item.order_id === order.id){
-                if(!item.product) return;
-                const prod = item.product[0];
-
-                return <ListCard key={item.id} >
-                    {/* <TwoColumns product={prod} /> */}
-                    <ThreeColumns orderItem={item} />
-                </ListCard>
-            }
-        });
-
-
-        return (
-        <div key={order.id} >
-
-
-            <GridHeader>
-
-                    <Grid item>
-                        <Typography variant="subtitle1" component="em">
-                            Ordered on date
-                        </Typography>
-                        <Typography variant="body2" component="p">
-                            {formatDate(order.created_at)}
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Typography variant="subtitle1" component="em">
-                            Total
-                        </Typography>
-                        <Typography variant="body2" component="p">
-                            ${order.total}
-                        </Typography>
-
-                    </Grid>
-                    <Grid item mr={2}>
-                        <Typography variant="subtitle1" component="em">
-                            Order #{order.id}
-                        </Typography>
-                        <Typography variant="body2" component="p">
-                            <a href="#">See Order Details</a>
-                        </Typography>
-                    </Grid>
-
-            </GridHeader>
-
-
-            <Grid
-                sx={{
-                    '& > *:last-of-type': {
-                        borderBottomLeftRadius: '0.5rem',
-                        borderBottomRightRadius: '0.5rem',
-                    }
-                 }}
-            >
-                {orderItems}
-            </Grid>
-
-        </div>)
-    })
-
-    return <>
-    <AccountWrapper>
-        <CenteredWrapper mySize="long" >
-            <h1>Orders Page</h1>
-            {elemList}
-        </CenteredWrapper>
-    </AccountWrapper>
-    </>
 }
 
 export async function getServerSideProps(context:GetServerSidePropsContext) {
@@ -147,4 +57,22 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
       },
     };
 }
+
+
+export default function OrdersPage({orders, items}:OrdersPageProps){
+
+    return <>
+    <AccountWrapper>
+        <CenteredWrapper mySize="long" >
+            <Orders
+                {...{
+                    orders,
+                    items
+                }}
+            />
+        </CenteredWrapper>
+    </AccountWrapper>
+    </>
+}
+
 

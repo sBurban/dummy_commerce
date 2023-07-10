@@ -1,6 +1,6 @@
 import React from "react";
 import {render, screen} from '@testing-library/react';
-import { SideMenu, MenuRoutes } from "../../components/menus/SideMenu";
+import { SideMenu, MenuRoutes } from "../../components/layouts/menus/SideMenu";
 // import { useRouter } from "next/router";
 import { ROUTE_ACCOUNT,ROUTE_ACCOUNT_ACCESS,ROUTE_ACCOUNT_ADDRESSES,ROUTE_ACCOUNT_ORDERS } from '@/lib/common/Constants';
 
