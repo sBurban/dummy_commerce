@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import AboutUs from '../../pages/about_us';
+import AboutUs from '.';
 import storytext from '../../data/aboutUsStory';
 
 describe('AboutUs', () => {

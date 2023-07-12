@@ -1,10 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import Products from "@/pages/products";
-import products from "@/data/products_seeder";
+import productsSeeder from "@/data/products_seeder";
+import { ProductsList } from "./ProductsList";
 describe('Products main test', () => {
     test('renders Products page',() => {
         //Arrange
-        const {container} = render(<Products products={[]} categories={[]} />);
+        const {container} = render(<ProductsList products={[]} categories={[]} />);
         //Act
         //Assert
         expect(container).toBeInTheDocument();
@@ -12,14 +13,14 @@ describe('Products main test', () => {
 
     // test('renders Product list')
     test('renders 0 images without products', () => {
-        render(<Products products={[]} categories={[]} />);
+        render(<ProductsList products={[]} categories={[]} />);
         const imageElem = screen.queryByAltText('product image');
         expect(imageElem).not.toBeInTheDocument();
     })
 
     test('renders list of Products', () => {
-        render(<Products products={products} categories={[]} />);
+        render(<ProductsList products={productsSeeder} categories={[]} />);
         const imageElems = screen.queryAllByAltText('product image');
-        expect(imageElems).toHaveLength(products.length);
+        expect(imageElems).toHaveLength(productsSeeder.length);
     })
 })

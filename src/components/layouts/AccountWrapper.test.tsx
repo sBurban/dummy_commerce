@@ -1,6 +1,6 @@
 import React from "react";
 import {render} from '@testing-library/react';
-import AccountWrapper from '../../components/layouts/AccountWrapper';
+import AccountWrapper from './AccountWrapper';
 
 // import { useRouter } from "next/router";
 // jest.mock('next/router', () => ({

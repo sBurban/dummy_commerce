@@ -1,6 +1,6 @@
 import React from "react";
 import {render} from '@testing-library/react';
-import CenteredWrapper from '../../components/layouts/CenteredWrapper';
+import CenteredWrapper from './CenteredWrapper';
 
 describe('Testing CenteredWrapper',() => {
     test('renders without errors', () => {

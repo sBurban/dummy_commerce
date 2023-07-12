@@ -1,7 +1,7 @@
 import React from 'react'
 import StyledImg from '@/components/commons/StyledImg'
 import { Typography, Grid } from '@mui/material'
-import storytext from '../data/aboutUsStory';
+import storytext from '../../data/aboutUsStory';
 import CenteredWrapper from '@/components/layouts/CenteredWrapper';
 
 export default function AboutUs() {

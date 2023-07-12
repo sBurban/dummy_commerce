@@ -1,5 +1,5 @@
-import {getSessionData, setSessionData, clearSession} from '../../lib/utils/singleCheckout';
-import { SINGLE_CHECKOUT_NAME } from '../../lib/common/Constants';
+import {getSessionData, setSessionData, clearSession} from './singleCheckout';
+import { SINGLE_CHECKOUT_NAME } from '../common/Constants';
 
 const localStorageMock = (() =>  {
     let store = {};
