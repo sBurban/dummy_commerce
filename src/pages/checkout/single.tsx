@@ -1,5 +1,5 @@
-import React from 'react'
-import { GetServerSidePropsContext } from "next";
+import React from 'react';
+import { GetServerSidePropsContext } from 'next';
 import { isLoginRequiredServer } from '@/lib/auth';
 import { fetchUserByEmail } from '@/lib/mongoDB/userQueries';
 import { TABLE_USER_ADDRESS } from '@/lib/common/dbTables';
@@ -12,65 +12,64 @@ import { Session } from 'next-auth';
 import { UserType, AddressType } from '@/lib/common/Types';
 
 export type CheckoutProps = {
-  session: Session,
-  user: UserType,
-  address: AddressType,
-}
+  session: Session;
+  user: UserType;
+  address: AddressType;
+};
 
-export async function getServerSideProps(context:GetServerSidePropsContext) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const check = await isLoginRequiredServer(context);
   if (!check.session) return check;
-  const {session} = check;
+  const { session } = check;
 
   try {
-      const userEmail = session?.user?.email || "";
-      //Get User full object
-      const res1 = await fetchUserByEmail(userEmail);
-      const user = res1.data;
+    const userEmail = session?.user?.email || '';
+    //Get User full object
+    const res1 = await fetchUserByEmail(userEmail);
+    const user = res1.data;
 
-      //Get Orders belonging to the connected User
-      const queryFilter = { query:{ user_id:user.id } };
-      const res2 = await dbFindFromCollection(TABLE_USER_ADDRESS, queryFilter)
-      const userAddresses = res2.data;
+    //Get Orders belonging to the connected User
+    const queryFilter = { query: { user_id: user.id } };
+    const res2 = await dbFindFromCollection(TABLE_USER_ADDRESS, queryFilter);
+    const userAddresses = res2.data;
 
-      let selectedAddress = null;
-      if(userAddresses.length > 0){
-        const defaultAddress = userAddresses.filter( user_address => user_address.isDefault)
-        selectedAddress = defaultAddress.length > 0? defaultAddress[0] : userAddresses[0];
-      }
+    let selectedAddress = null;
+    if (userAddresses.length > 0) {
+      const defaultAddress = userAddresses.filter(
+        (user_address) => user_address.isDefault,
+      );
+      selectedAddress =
+        defaultAddress.length > 0 ? defaultAddress[0] : userAddresses[0];
+    }
 
-      return {
-          props:{
-              user: user,
-              session: session,
-              address: selectedAddress,
-          },
-      }
-
+    return {
+      props: {
+        user,
+        session,
+        address: selectedAddress,
+      },
+    };
   } catch (error) {
-      console.log("[PROFILE_PAGE] ERROR FETCHING DATA FROM SERVER");
+    console.log('[PROFILE_PAGE] ERROR FETCHING DATA FROM SERVER');
   }
 
   return {
-      props: {
-        session: session
-      },
+    props: {
+      session,
+    },
   };
 }
 
-
-export default function SingleCheckoutPage({session, user, address}:any) {
-
+export default function SingleCheckoutPage({ session, user, address }: any) {
   return (
-    <CenteredWrapper mySize='full' >
-        <SingleCheckout
-          {...{
-            session,
-            user,
-            address
-          }}
-        />
+    <CenteredWrapper mySize='full'>
+      <SingleCheckout
+        {...{
+          session,
+          user,
+          address,
+        }}
+      />
     </CenteredWrapper>
-  )
+  );
 }
-
