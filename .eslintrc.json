@@ -1,9 +1,11 @@
 {
   "extends": [
     "airbnb-base",
+    "airbnb-typescript/base",
     "next/core-web-vitals",
     "plugin:prettier/recommended"
   ],
+  "plugins":["@typescript-eslint", "simple-import-sort", "unused-imports"],
   "rules": {
     "prettier/prettier": ["error", {
       "singleQuote": true,
@@ -11,6 +13,18 @@
     }],
     // "quotes": ["error", "single", { "avoidEscape": true }],
     "jsx-quotes": ["error", "prefer-single"],
-    "camelcase":"warn"
+    "camelcase":"warn",
+    // increase the severity of rules so they are auto-fixable
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+    ]
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
   }
 }
