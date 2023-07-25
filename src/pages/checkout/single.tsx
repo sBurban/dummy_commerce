@@ -36,7 +36,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     let selectedAddress = null;
     if (userAddresses.length > 0) {
       const defaultAddress = userAddresses.filter(
-        (user_address) => user_address.isDefault,
+        (user_address) => user_address.isDefault
       );
       selectedAddress =
         defaultAddress.length > 0 ? defaultAddress[0] : userAddresses[0];
@@ -44,8 +44,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     return {
       props: {
-        user,
-        session,
+        user: user,
+        session: session,
         address: selectedAddress,
       },
     };
