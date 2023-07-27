@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch",
-    "pretty-quick": "pretty-quick"
+    "pretty-quick": "pretty-quick",
+    "check-types": "tsc --noEmit --pretty"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
