@@ -1,21 +1,12 @@
-import React from 'react';
 import { GetServerSidePropsContext } from 'next';
+import React from 'react';
+
+import CenteredWrapper from '@/components/layouts/CenteredWrapper';
+import { SingleCheckout } from '@/components/pageComponentsCheckout/SingleCheckout';
 import { isLoginRequiredServer } from '@/lib/auth';
-import { fetchUserByEmail } from '@/lib/mongoDB/userQueries';
 import { TABLE_USER_ADDRESS } from '@/lib/common/dbTables';
 import { dbFindFromCollection } from '@/lib/mongoDB/mongoQueries';
-import CenteredWrapper from '@/components/layouts/CenteredWrapper';
-
-import { SingleCheckout } from '@/components/pageComponentsCheckout/SingleCheckout';
-
-import { Session } from 'next-auth';
-import { UserType, AddressType } from '@/lib/common/Types';
-
-export type CheckoutProps = {
-  session: Session;
-  user: UserType;
-  address: AddressType;
-};
+import { fetchUserByEmail } from '@/lib/mongoDB/userQueries';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const check = await isLoginRequiredServer(context);
@@ -24,11 +15,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   try {
     const userEmail = session?.user?.email || '';
-    //Get User full object
+    // Get User full object
     const res1 = await fetchUserByEmail(userEmail);
     const user = res1.data;
 
-    //Get Orders belonging to the connected User
+    // Get Orders belonging to the connected User
     const queryFilter = { query: { user_id: user.id } };
     const res2 = await dbFindFromCollection(TABLE_USER_ADDRESS, queryFilter);
     const userAddresses = res2.data;
@@ -36,7 +27,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     let selectedAddress = null;
     if (userAddresses.length > 0) {
       const defaultAddress = userAddresses.filter(
-        (user_address) => user_address.isDefault
+        (userAddress) => userAddress.isDefault
       );
       selectedAddress =
         defaultAddress.length > 0 ? defaultAddress[0] : userAddresses[0];
@@ -44,8 +35,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     return {
       props: {
-        user: user,
-        session: session,
+        user,
+        session,
         address: selectedAddress,
       },
     };
