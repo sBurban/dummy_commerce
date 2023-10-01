@@ -1,2 +1,5 @@
 node_modules
 lint-staged.config.js
+jest.**
+commitLint.config.**
+next.config.**

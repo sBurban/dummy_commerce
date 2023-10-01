@@ -29,5 +29,6 @@
     "src/components/layouts/AccountWrapper.test.tsx",
     "src/components/layouts/AccountWrapper.test.tsx",
     "src/lib/utils/sessionStorage.test.js"
-  ]
+  ],
+  "exclude": ["node_modules"]
 }
